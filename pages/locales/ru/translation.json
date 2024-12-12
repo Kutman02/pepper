@@ -1,0 +1,38 @@
+{
+	"404page": "Пусто",
+	"addToCart": "Добавить в корзину",
+	"category": {
+		"masalas": "Масала",
+		"chatMasalas": "Чат Масала",
+		"pepperPowder": "Перечный порошок",
+		"cookingEssentials": "Кулинарные принадлежности",
+		"refundOil": "Масло для возврата"
+	},
+	"slider": {
+		"alt": "main slider"
+	},
+	"bannerMiddle": {
+		"alt": "banner middle"
+	},
+	"bannerBottom": {
+		"medium": {
+			"alt": "banner bottom medium"
+		},
+		"small": [
+			{
+				"alt": "banner bottom small 1"
+			},
+			{
+				"alt": "banner bottom small 2"
+			}
+		]
+	},
+	"sliderProducts": {
+		"bestOffer": {
+			"title": "Лучшие продукты"
+		},
+		"bestSelling": {
+			"title": "Лучше проданные продукты"
+		}
+	}
+}

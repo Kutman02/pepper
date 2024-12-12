@@ -1,0 +1,38 @@
+{
+	"404page": "Not Page",
+	"addToCart": "Add to Cart",
+	"category": {
+		"masalas": "Masalas",
+		"chatMasalas": "Chat Masalas",
+		"pepperPowder": "Pepper Powder",
+		"cookingEssentials": "Cooking Essentials",
+		"refundOil": "Refund Oil"
+	},
+	"slider": {
+		"alt": "main slider"
+	},
+	"bannerMiddle": {
+		"alt": "banner middle"
+	},
+	"bannerBottom": {
+		"medium": {
+			"alt": "banner bottom medium"
+		},
+		"small": [
+			{
+				"alt": "banner bottom small 1"
+			},
+			{
+				"alt": "banner bottom small 2"
+			}
+		]
+	},
+	"sliderProducts": {
+		"bestOffer": {
+			"title": "Best Offer Products"
+		},
+		"bestSelling": {
+			"title": "Best Selling Products"
+		}
+	}
+}
