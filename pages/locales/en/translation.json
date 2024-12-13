@@ -39,6 +39,13 @@
 		"Showing": "Showing",
 		"product": "product",
 		"of": "Of",
-		"filter": "Filter"
+		"filter": "Filter",
+		"priceRanget": "Price Range",
+		"searcht": "Search",
+		"categoryt": "Category"
+	},
+	"footert": {
+		"aboutUs": "About us",
+		"aboutUsTitle": "Selling spices is one of the most profitable home businesses. There are steps you need to go through to start your own spice business."
 	}
 }

@@ -3,6 +3,7 @@ import Link from 'next/link';
 import logo from 'public/images/logo.png';
 import mail from 'public/icons/mail.png';
 import phone from 'public/icons/phone.png';
+import { useTranslation } from 'react-i18next';
 import {
 	DivContent,
 	DivContentUs,
@@ -16,6 +17,8 @@ import {
 } from './styled';
 
 const Footer = () => {
+	const { t } = useTranslation();
+
 	return (
 		<FooterContent>
 			<FooterWrapper>
@@ -27,11 +30,8 @@ const Footer = () => {
 
 				<DivContent>
 					<DivContentWrapper>
-						<FooterTitle>About us</FooterTitle>
-						<PContent>
-							Selling spices is one of the most profitable home businesses. There are steps you need to go through to
-							start your own spice business.
-						</PContent>
+						<FooterTitle>{t('footert.aboutUs')}</FooterTitle>
+						<PContent>{t('footert.aboutUsTitle')}</PContent>
 					</DivContentWrapper>
 
 					<DivContentWrapper>

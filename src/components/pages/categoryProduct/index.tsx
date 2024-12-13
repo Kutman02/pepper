@@ -51,18 +51,18 @@ const CategoryProduct = ({ data }: CategoryProductType) => {
 
 			<Sidebar>
 				<Search>
-					<span>Search</span>
+					<span>{t('FilterProducts.searcht')}</span>
 					<Input borderColor={'2px solid #cb1213'} />
 				</Search>
 
 				<div>
-					<span>Price range</span>
+					<span>{t('FilterProducts.priceRanget')}</span>
 
 					<PriceRange />
 				</div>
 
 				<div>
-					<span>Category</span>
+					<span>{t('FilterProducts.categoryt')}</span>
 					<CategoryFilter>
 						{listCategory.map((item, index) => (
 							<Link href={routes.category(item.link)} key={index}>
