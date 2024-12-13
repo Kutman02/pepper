@@ -9,6 +9,7 @@ import share from 'public/icons/share.png';
 import interest from 'public/icons/interest.png';
 import ProductTabs from './productTabs';
 import { updateGlobalSlice } from '../../../store/globalSlice';
+import { useTranslation } from 'react-i18next';
 import {
 	AlbumImage,
 	Description,
@@ -25,6 +26,7 @@ import {
 } from './styled';
 
 const ProductContent = ({ data }: any) => {
+	const { t } = useTranslation();
 	const router = useRouter();
 	const dispatch = useDispatch();
 	const email = useSelector((state: any) => state.globalSlice.data.email);
@@ -75,13 +77,13 @@ const ProductContent = ({ data }: any) => {
 					<Description>{data.summery}</Description>
 
 					<ProductPrice>
-						<Price>price:</Price>
-						<Amount>{`$ ${data.price}`}</Amount>
+						<Price>{t('productContent.price')}</Price>
+						<Amount>{` ${data.price} сом`}</Amount>
 					</ProductPrice>
 
 					<ButtonBuy>
 						<Button width={'335px'} height={'50px'} onClick={handleBuy}>
-							Buy now
+							{t('productContent.buyNow')}
 						</Button>
 					</ButtonBuy>
 				</Product>

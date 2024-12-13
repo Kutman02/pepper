@@ -1,5 +1,6 @@
 import React from 'react';
 import { DescriptionTabs, Tab, Tabs, Wrapper } from './styled';
+import { useTranslation } from 'react-i18next';
 
 type ProductTabsType = {
 	content: string;
@@ -7,10 +8,11 @@ type ProductTabsType = {
 };
 
 const ProductTabs = ({ data }: any) => {
+	const { t } = useTranslation();
 	return (
 		<Wrapper>
 			<Tabs>
-				<Tab>Product Description</Tab>
+				<Tab>{t('productContent.productDescription')}</Tab>
 			</Tabs>
 			<DescriptionTabs>
 				{data.map((item: ProductTabsType, index: number) => (

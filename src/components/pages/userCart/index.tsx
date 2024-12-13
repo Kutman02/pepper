@@ -7,6 +7,7 @@ import Input from '@src/components/base/input';
 import Button from '@src/components/base/button';
 import { postNewOrder } from '@src/api/order';
 import { routes } from '@src/constants/routes';
+import { useTranslation } from 'react-i18next';
 import {
 	BuyButton,
 	CartTitle,
@@ -24,6 +25,7 @@ type UserCartType = {
 };
 
 const UserCart = ({ cartList, setCartList }: UserCartType) => {
+	const { t } = useTranslation();
 	const dispatch = useDispatch();
 
 	const [inputValues, setInputValues] = useState({
@@ -58,28 +60,28 @@ const UserCart = ({ cartList, setCartList }: UserCartType) => {
 			{cartList.length ? (
 				<Wrapper>
 					<ProductsShoppingCart>
-						<CartTitle>Products</CartTitle>
+						<CartTitle>{t('userCart.Products')}</CartTitle>
 
 						<CartProducts cartList={cartList} setCartList={setCartList} />
 					</ProductsShoppingCart>
 
 					<div>
-						<CartTitle>Order Summary</CartTitle>
+						<CartTitle>{t('userCart.orderSummary')}</CartTitle>
 						<Form>
-							<DescriptionForm>Shipping, taxes, and discounts will be calculated at checkout.</DescriptionForm>
+							<DescriptionForm>{t('userCart.orderSummarytitle')}</DescriptionForm>
 
 							<FormInput>
-								<FormInputTitle>Country</FormInputTitle>
+								<FormInputTitle>{t('userCart.country')}</FormInputTitle>
 								<Input width='100%' height={50} name='country' value={inputValues.country} onChange={handleChange} />
 							</FormInput>
 
 							<FormInput>
-								<FormInputTitle>State</FormInputTitle>
+								<FormInputTitle>{t('userCart.state')}</FormInputTitle>
 								<Input width='100%' height={50} name='state' value={inputValues.state} onChange={handleChange} />
 							</FormInput>
 
 							<FormInput>
-								<FormInputTitle>Zip/Postal Code</FormInputTitle>
+								<FormInputTitle>{t('userCart.postalCode')}</FormInputTitle>
 								<Input
 									width='100%'
 									height={50}
@@ -91,14 +93,14 @@ const UserCart = ({ cartList, setCartList }: UserCartType) => {
 
 							<BuyButton>
 								<Button width={145} onClick={handleSubmitForm}>
-									Continue shopping
+									{t('userCart.continueShopping')}
 								</Button>
 							</BuyButton>
 						</Form>
 					</div>
 				</Wrapper>
 			) : (
-				<span>Shopping basket is empty</span>
+				<span>{t('userCart.shoppingBasketIsEmpty')}</span>
 			)}
 		</>
 	);

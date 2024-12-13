@@ -33,7 +33,7 @@ const OrderedProduct = ({ products }: OrderType) => {
 
 						<PriceProduct>
 							<Total>TotalPrice:</Total>
-							<Price> {`$${item.price * item.total}`}</Price>
+							<Price> {`${item.price * item.total}`}</Price>
 						</PriceProduct>
 					</OrderedProductDetails>
 				</Wrapper>

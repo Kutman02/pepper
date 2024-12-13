@@ -8,6 +8,7 @@ import exit from 'public/icons/exit.png';
 import { routes } from '@src/constants/routes';
 import { updateGlobalSlice } from '../../../store/globalSlice';
 import OrderedProducts from './orderedProducts';
+import { useTranslation } from 'react-i18next';
 import {
 	Account,
 	AccountContent,
@@ -24,6 +25,7 @@ import {
 } from './styled';
 
 const UserProfile = () => {
+	const { t } = useTranslation();
 	const email = useSelector((state: any) => state.globalSlice.data.email);
 	const dispatch = useDispatch();
 	const router = useRouter();
@@ -42,7 +44,7 @@ const UserProfile = () => {
 						<Image src={profile} alt='account' />
 
 						<UserInformation>
-							<User>user</User>
+							<User>{t('userProfile.user')}</User>
 							<span>{email}</span>
 						</UserInformation>
 					</AccountContent>
@@ -55,14 +57,14 @@ const UserProfile = () => {
 					<Orders>
 						<Image src={cart} alt='cart' width={20} height={20} />
 
-						<OrderText>Orders</OrderText>
+						<OrderText>{t('userProfile.orders')}</OrderText>
 					</Orders>
 				</Fever>
 				<Fever>
 					<Exit onClick={handleLogOut}>
 						<Image src={exit} alt='exit' width={20} height={20} />
 
-						<ExitText>Exit</ExitText>
+						<ExitText>{t('userProfile.exit')}</ExitText>
 					</Exit>
 				</Fever>
 			</CartProfile>

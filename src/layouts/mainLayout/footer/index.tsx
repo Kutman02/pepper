@@ -35,16 +35,16 @@ const Footer = () => {
 					</DivContentWrapper>
 
 					<DivContentWrapper>
-						<FooterTitle>Contact us</FooterTitle>
+						<FooterTitle>{t('footert.contactUs')}</FooterTitle>
 
 						<DivContentUs>
 							<Image src={mail} alt='mail' />
-							<SpanContentUs>mail@example.com</SpanContentUs>
+							<SpanContentUs>Kutmank9@gmail.com</SpanContentUs>
 						</DivContentUs>
 
 						<DivContentUs>
 							<Image src={phone} alt='phone' />
-							<SpanContentUs>09102416098</SpanContentUs>
+							<SpanContentUs>0703601025</SpanContentUs>
 						</DivContentUs>
 					</DivContentWrapper>
 				</DivContent>

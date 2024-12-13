@@ -4,6 +4,7 @@ import accepted from 'public/icons/accepted.png';
 import { getMyOrders } from '@src/api/order';
 import OrderedProduct from './orderedProduct';
 import { Wrapper, OrderedProductWrapper, CartContent } from './styled';
+import { useTranslation } from 'react-i18next';
 
 type OrderType = {
 	country: string;
@@ -14,7 +15,7 @@ type OrderType = {
 
 const OrderedProducts = () => {
 	const [orders, setOrders] = useState([]);
-
+	const { t } = useTranslation();
 	const getCart = async () => {
 		const response = await getMyOrders();
 		setOrders(response.data);
@@ -24,14 +25,17 @@ const OrderedProducts = () => {
 		getCart();
 	}, []);
 
-	if (!orders.length) return <h3>There is no order</h3>;
+	if (!orders.length) return <h3>{t('profilet.thereisNoOrder')}</h3>;
 
 	return (
 		<CartContent>
 			{orders.map((item: OrderType, index: number) => (
 				<Wrapper key={index}>
 					<OrderedProductWrapper>
-						<span>order number : {index + 1}</span>
+						<span>
+							{t('profilet.orderNumber')}
+							{index + 1}
+						</span>
 
 						<OrderedProduct products={item.products} />
 					</OrderedProductWrapper>

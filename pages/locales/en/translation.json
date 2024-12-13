@@ -46,6 +46,36 @@
 	},
 	"footert": {
 		"aboutUs": "About us",
-		"aboutUsTitle": "Selling spices is one of the most profitable home businesses. There are steps you need to go through to start your own spice business."
+		"aboutUsTitle": "Selling spices is one of the most profitable home businesses. There are steps you need to go through to start your own spice business.",
+		"contactUs": "Contact us"
+	},
+	"profilet": {
+		"thereisNoOrder": "There is no order",
+		"orderNumber": "order number : "
+	},
+	"userCart": {
+		"Products": "Products",
+		"orderSummary": "Order Summary",
+		"orderSummarytitle": "Shipping, taxes, and discounts will be calculated at checkout.",
+		"country": "Country",
+		"state": "State",
+		"postalCode": "Zip/Postal Code",
+		"shoppingBasketIsEmpty": "Shopping basket is empty",
+		"continueShopping": "Continue shopping"
+	},
+	"totalt": "Total:",
+	"userProfile": {
+		"user": "user",
+		"orders": "Orders",
+		"exit": "Exit"
+	},
+	"productContent": {
+		"buyNow": "Buy now",
+		"price": "Price:",
+		"exit": "Exit",
+		"productDescription": "Product Description "
+	},
+	"allProducts": {
+		"description": "Description"
 	}
 }

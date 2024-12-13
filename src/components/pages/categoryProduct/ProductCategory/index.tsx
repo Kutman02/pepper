@@ -11,6 +11,7 @@ import { updateGlobalSlice } from '@src/store/globalSlice';
 import { postCartChange } from '@src/api/cart';
 import { ListProducts } from '@src/interfaces/listProducts';
 import { Product, ProductFavorites, ProductName, ProductPrice, Score } from './styled';
+import { useTranslation } from 'react-i18next';
 
 type ProductSlideProps = {
 	title?: string;
@@ -18,6 +19,7 @@ type ProductSlideProps = {
 };
 
 const ProductCategory = ({ list }: ProductSlideProps) => {
+	const { t } = useTranslation();
 	const router = useRouter();
 	const dispatch = useDispatch();
 	const email = useSelector((state: any) => state.globalSlice.data.email);
@@ -55,9 +57,9 @@ const ProductCategory = ({ list }: ProductSlideProps) => {
 
 								<Image src={interest} alt='interest' width={18} height={18} />
 							</ProductFavorites>
-							<ProductPrice>{`$ ${item.price}`}</ProductPrice>
+							<ProductPrice>{`${item.price} сом`}</ProductPrice>
 						</Link>
-						<Button onClick={() => handleBuy(item.id)}>Add To Cart</Button>
+						<Button onClick={() => handleBuy(item.id)}>{t('addToCart')}</Button>
 					</Product>
 				))
 			) : (

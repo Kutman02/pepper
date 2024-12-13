@@ -5,6 +5,7 @@ import Button from '../../../base/button';
 import { postCartChange } from '@src/api/cart';
 import { cloneList } from '@src/utils';
 import { updateGlobalSlice } from '@src/store/globalSlice';
+import { useTranslation } from 'react-i18next';
 import {
 	CounterNumber,
 	OrderedProduct,
@@ -34,6 +35,7 @@ type CartListType = {
 };
 
 const CartProducts = ({ cartList, setCartList }: ProductSlideProps) => {
+	const { t } = useTranslation();
 	const dispatch = useDispatch();
 	console.log('cartList', cartList);
 	console.log('setCartList', setCartList);
@@ -91,8 +93,7 @@ const CartProducts = ({ cartList, setCartList }: ProductSlideProps) => {
 									borderColor={'none'}
 									width={40}
 									height={35}
-									onClick={() => (item.total > 1 ? decrement(item.id) : '')}
-								>
+									onClick={() => (item.total > 1 ? decrement(item.id) : '')}>
 									-
 								</Button>
 
@@ -104,8 +105,8 @@ const CartProducts = ({ cartList, setCartList }: ProductSlideProps) => {
 							</ProductCounter>
 
 							<PriceProduct>
-								<Total>Total:</Total>
-								<Price>{`$${item.price * item.total}`}</Price>
+								<Total>{t('totalt')}</Total>
+								<Price>{`${item.price * item.total} сом`}</Price>
 							</PriceProduct>
 						</OrderedProductDetails>
 					</OrderedProduct>
