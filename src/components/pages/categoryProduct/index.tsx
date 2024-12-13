@@ -1,4 +1,5 @@
 import Image from 'next/image';
+import { useTranslation } from 'react-i18next';
 import Link from 'next/link';
 import filter from 'public/icons/filter.png';
 import Input from '@src/components/base/input';
@@ -20,23 +21,25 @@ type CategoryProductType = {
 };
 
 const CategoryProduct = ({ data }: CategoryProductType) => {
-	const listCategory = [
-		{ title: 'masalas', link: 'masalas' },
-		{ title: 'chat masalas', link: 'chat-masalas' },
-		{ title: 'pepper Powder', link: 'pepper-Powder' },
-		{ title: 'cooking Essentials', link: 'cooking-essentials' },
-		{ title: 'refund Oil', link: 'refund-oil' },
-	];
+	const { t } = useTranslation();
 
+	const listCategory = [
+		{ title: t('category.masalas'), link: 'masalas' },
+		{ title: t('category.chatMasalas'), link: 'chat-masalas' },
+		{ title: t('category.pepperPowder'), link: 'pepper-Powder' },
+		{ title: t('category.cookingEssentials'), link: 'cooking-essentials' },
+		{ title: t('category.refundOil'), link: 'refund-oil' },
+	];
 	return (
 		<Wrapper>
 			<ProductContent>
 				<FilterProducts>
 					<p>
-						Showing {data.length} of {data.length} product
+						{t('FilterProducts.Showing')} {data.length} {t('FilterProducts.of')} {data.length}{' '}
+						{t('FilterProducts.product')}
 					</p>
 					<div>
-						<span>Filter</span>
+						<span>{t('FilterProducts.filter')}</span>
 						<Image src={filter} alt='filter' width={18} height={18} />
 					</div>
 				</FilterProducts>

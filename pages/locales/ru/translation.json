@@ -34,5 +34,11 @@
 		"bestSelling": {
 			"title": "Лучше проданные продукты"
 		}
+	},
+	"FilterProducts": {
+		"Showing": "Показано",
+		"product": "товара",
+		"of": "из",
+		"filter": "Фильтр"
 	}
 }

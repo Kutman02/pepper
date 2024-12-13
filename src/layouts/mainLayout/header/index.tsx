@@ -14,7 +14,7 @@ const BoxLogin = dynamic(() => import('./boxLogin'), {
 });
 
 const listCategory = [
-	{ title: 'category.masalas', link: 'Masalas' },
+	{ title: 'category.masalas', link: 'masalas' },
 	{ title: 'category.chatMasalas', link: 'chat-masalas' },
 	{ title: 'category.pepperPowder', link: 'pepper-Powder' },
 	{ title: 'category.cookingEssentials', link: 'cooking-essentials' },
@@ -54,10 +54,10 @@ const Header = () => {
 				{/* Переключатель языка */}
 				<div style={{ marginLeft: 'auto', display: 'flex', alignItems: 'center', gap: '10px' }}>
 					<button onClick={() => changeLanguage('en')} style={{ cursor: 'pointer' }}>
-						{t('english')}
+						{t('en')}
 					</button>
 					<button onClick={() => changeLanguage('ru')} style={{ cursor: 'pointer' }}>
-						{t('russian')}
+						{t('ru')}
 					</button>
 				</div>
 				{/* Категории */}
