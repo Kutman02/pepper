@@ -1,6 +1,8 @@
 {
 	"404page": "Not Page",
 	"addToCart": "Add to Cart",
+	"itemAddedToCart": "Added to cart",
+	"errorAddingToCart": "Error adding to cart",
 	"category": {
 		"masalas": "Masalas",
 		"chatMasalas": "Chat Masalas",

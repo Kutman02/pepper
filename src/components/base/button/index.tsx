@@ -22,7 +22,7 @@ const Button = ({
 	width = 100,
 	height = 40,
 	disable = false,
-	borderColor = '3px solid #cf191a',
+	borderColor = '3px solidrgb(184, 184, 211)',
 	onClick,
 	fontSize,
 	...props
@@ -40,8 +40,7 @@ const Button = ({
 				borderColor,
 				disable,
 				fontSize,
-			}}
-		>
+			}}>
 			{children}
 		</ButtonContainer>
 	);

@@ -27,7 +27,7 @@ const Product = (props: ProductType) => {
 	return (
 		<>
 			<Head>
-				<title>spiceJet - Product</title>
+				<title>Перец</title>
 			</Head>
 
 			{product ? <ProductContent data={props.data.data} /> : 'There is no product'}

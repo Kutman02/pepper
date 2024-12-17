@@ -63,7 +63,7 @@ const ProductSlide = ({ title, list }: ProductSlideProps) => {
 								<Image src={item.images[0]} alt='image' width={225} height={225} />
 
 								<ProductTitle>{item.title}</ProductTitle>
-								<ProductPrice>{`$1{item.price}`}</ProductPrice>
+								<ProductPrice>{`${item.price} сом`}</ProductPrice>
 							</Link>
 							<Button onClick={() => handleBuy(item.id)}>{t('addToCart')}</Button>
 						</Product>

@@ -1,13 +1,13 @@
 import Image from 'next/image';
-import Link from 'next/link';
-import logo from 'public/images/logo.png';
+//import Link from 'next/link';
+//import logo from 'public/images/logo.png';
 import mail from 'public/icons/mail.png';
 import phone from 'public/icons/phone.png';
 import { useTranslation } from 'react-i18next';
 import {
 	DivContent,
 	DivContentUs,
-	DivLogo,
+	//DivLogo,
 	FooterContent,
 	FooterTitle,
 	FooterWrapper,
@@ -22,11 +22,11 @@ const Footer = () => {
 	return (
 		<FooterContent>
 			<FooterWrapper>
-				<DivLogo>
+				{/*<DivLogo>
 					<Link href='/'>
 						<Image src={logo} alt='logo' />
 					</Link>
-				</DivLogo>
+				</DivLogo>*/}
 
 				<DivContent>
 					<DivContentWrapper>

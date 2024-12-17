@@ -18,7 +18,7 @@ const Profile = () => {
 	return (
 		<>
 			<Head>
-				<title>spiceJet - Profile</title>
+				<title>Профиль</title>
 			</Head>
 
 			<UserProfile />

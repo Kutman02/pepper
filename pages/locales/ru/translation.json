@@ -1,6 +1,8 @@
 {
 	"404page": "Пусто",
 	"addToCart": "Добавить в корзину",
+	"itemAddedToCart": "Добавлен в корзину",
+	"errorAddingToCart": "Ошибка в добавлении",
 	"category": {
 		"masalas": "Масала",
 		"chatMasalas": "Чат Масала",

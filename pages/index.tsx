@@ -17,7 +17,7 @@ const Home = ({ data }: HomeProps) => {
 	return (
 		<div>
 			<Head>
-				<title>spiceJet</title>
+				<title>Перец</title>
 			</Head>
 
 			<HomeContent data={data} />

@@ -35,8 +35,10 @@ const ProductCategory = ({ list }: ProductSlideProps) => {
 
 		if (response.status === 200) {
 			dispatch(updateGlobalSlice({ cartTotal: response.cartTotal }));
-
-			router.push(routes.cart);
+			alert(t('itemAddedToCart')); // Показываем сообщение об успешном добавлении
+		} else {
+			alert(t('errorAddingToCart')); // Сообщение об ошибке
+			//router.push(routes.cart);
 		}
 	};
 

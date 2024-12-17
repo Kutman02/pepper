@@ -28,7 +28,7 @@ const Cart = () => {
 	return (
 		<>
 			<Head>
-				<title>spiceJet - Cart</title>
+				<title>Корзина</title>
 			</Head>
 
 			<UserCart cartList={cartList} setCartList={setCartList} />

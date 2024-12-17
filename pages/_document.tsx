@@ -4,7 +4,7 @@ const Document = () => {
 	return (
 		<Html lang='en'>
 			<Head>
-				<meta name='description' content='spiceJet store' />
+				<meta name='description' content='Перец' />
 				<link rel='icon' href='/favicon.ico' />
 			</Head>
 

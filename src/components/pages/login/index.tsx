@@ -1,14 +1,14 @@
 import { useEffect, useState, ChangeEvent, FormEvent } from 'react';
-import Image from 'next/image';
+//import Image from 'next/image';
 import { useRouter } from 'next/router';
 import { useDispatch } from 'react-redux';
-import logo from 'public/images/logo.png';
+//import logo from 'public/images/logo.png';
 import Button from '@src/components/base/button';
 import Input from '@src/components/base/input';
 import { postAuth } from '@src/api/auth';
 import { routes } from '@src/constants/routes';
 import { updateGlobalSlice } from '../../../store/globalSlice';
-import { Form, FormButton, LoginDescription, LoginWrapper, Logo, Password, Register } from './style';
+import { Form, FormButton, LoginDescription, LoginWrapper, Password, Register } from './style';
 
 const LoginPage = () => {
 	const dispatch = useDispatch();
@@ -55,9 +55,9 @@ const LoginPage = () => {
 	return (
 		<LoginWrapper>
 			<Register>
-				<Logo>
+				{/*<Logo>
 					<Image src={logo} alt='logo' />
-				</Logo>
+				</Logo>*/}
 
 				<LoginDescription>
 					<p>Hello !</p>

@@ -47,8 +47,6 @@ import StarAnise1 from 'public/images/products/Star-Anise1.png';
 import StarAnise2 from 'public/images/products/Star-Anise2.png';
 import WhiteMustard1 from 'public/images/products/White-Mustard1.png';
 import WhiteMustard2 from 'public/images/products/White-Mustard2.png';
-import { useTranslation } from 'react-i18next';
-const { t } = useTranslation();
 export const productsData = [
 
 	{
@@ -61,8 +59,7 @@ export const productsData = [
 		summery:
 			'Nam tempus turpis at metus scelerisque placerat nulla deumantos solicitud felis. Pellentesque diam dolor, elementum etos lobortis des mollis ut risus. Sedcus faucibus an sullamcorper mattis drostique des commodo pharetras...',
 		description: [
-			{
-				title: {t('allProducts.description')},
+			{title: 'Description',
 				content:
 					'Nam tempus turpis at metus scelerisque placerat nulla deumantos solicitud felis. Pellentesque diam dolor, elementum etos lobortis des mollis ut risus.',
 			},

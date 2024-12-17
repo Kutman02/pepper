@@ -1,3 +1,4 @@
+import React, { useState } from 'react';
 import Image from 'next/image';
 import { useTranslation } from 'react-i18next';
 import Link from 'next/link';
@@ -17,11 +18,17 @@ import {
 } from './styled';
 
 type CategoryProductType = {
-	data: [];
+	data: { id: string; title: string; images: string[]; price: number }[]; // Указываем тип данных
 };
 
 const CategoryProduct = ({ data }: CategoryProductType) => {
 	const { t } = useTranslation();
+
+	// Состояние строки поиска
+	const [searchTerm, setSearchTerm] = useState('');
+
+	// Фильтруем товары по названию
+	const filteredData = data.filter((item) => item.title.toLowerCase().includes(searchTerm.toLowerCase()));
 
 	const listCategory = [
 		{ title: t('category.masalas'), link: 'masalas' },
@@ -30,12 +37,13 @@ const CategoryProduct = ({ data }: CategoryProductType) => {
 		{ title: t('category.cookingEssentials'), link: 'cooking-essentials' },
 		{ title: t('category.refundOil'), link: 'refund-oil' },
 	];
+
 	return (
 		<Wrapper>
 			<ProductContent>
 				<FilterProducts>
 					<p>
-						{t('FilterProducts.Showing')} {data.length} {t('FilterProducts.of')} {data.length}{' '}
+						{t('FilterProducts.Showing')} {filteredData.length} {t('FilterProducts.of')} {data.length}{' '}
 						{t('FilterProducts.product')}
 					</p>
 					<div>
@@ -45,14 +53,21 @@ const CategoryProduct = ({ data }: CategoryProductType) => {
 				</FilterProducts>
 
 				<Products>
-					<ProductCategory list={data} />
+					{/* Передаем отфильтрованные товары */}
+					<ProductCategory list={filteredData} />
 				</Products>
 			</ProductContent>
 
 			<Sidebar>
 				<Search>
-					<span>{t('FilterProducts.searcht')}</span>
-					<Input borderColor={'2px solid #cb1213'} />
+					{/*<span>{t('FilterProducts.searcht')}</span>*/}
+					{/* Добавляем обработчик ввода для поиска */}
+					<Input
+						borderColor={'1px solid #cb1213'}
+						value={searchTerm}
+						onChange={(e: React.ChangeEvent<HTMLInputElement>) => setSearchTerm(e.target.value)}
+						placeholder={t('FilterProducts.searcht')} // Можем добавить placeholder через перевод
+					/>
 				</Search>
 
 				<div>

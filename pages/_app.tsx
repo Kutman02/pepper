@@ -5,7 +5,7 @@ import { Suspense } from 'react';
 import { useTranslation } from 'react-i18next';
 
 const App = ({ Component, pageProps }: AppProps) => {
-	const { t, i18n } = useTranslation(); // Убираем t, если не используем
+	const { i18n } = useTranslation();
 
 	const changeLanguage = (language: string) => {
 		i18n.changeLanguage(language);

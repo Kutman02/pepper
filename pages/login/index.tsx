@@ -5,7 +5,7 @@ const Login = () => {
 	return (
 		<>
 			<Head>
-				<title>spiceJet - Login</title>
+				<title>Логин</title>
 			</Head>
 
 			<LoginPage />
