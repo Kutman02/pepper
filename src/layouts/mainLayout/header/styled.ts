@@ -18,6 +18,7 @@ export const HeaderWrapper = styled.div(() => ({
 	display: 'flex',
 	alignItems: 'center',
 	justifyContent: 'space-between',
+	position: 'relative', // Для корректного позиционирования кнопки меню
 }));
 
 export const ListCategories = styled.div(() => ({
@@ -63,8 +64,10 @@ export const MenuButton = styled.button(() => ({
 	fontSize: '24px',
 	cursor: 'pointer',
 	display: 'none',
-	marginLeft: 'auto',
-
+	//position: 'absolute',
+	left: '10px', // Расположение кнопки слева
+	top: '50%',
+	transform: 'translateY(-50%)',
 	'@media (max-width: 600px)': {
 		display: 'block',
 	},
