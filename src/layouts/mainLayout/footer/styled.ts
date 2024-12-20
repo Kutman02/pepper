@@ -4,7 +4,7 @@ import theme from '@styles/theme';
 const { black, blue } = theme.colors;
 
 export const FooterContent = styled.footer(() => ({
-	background: ' #e0e0e6',
+	background: 'rgb(117, 200, 255)',
 	display: 'flex',
 	alignItems: 'center',
 	justifyContent: 'space-evenly',

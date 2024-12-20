@@ -3,6 +3,11 @@
 	"addToCart": "Add to Cart",
 	"itemAddedToCart": "Added to cart",
 	"errorAddingToCart": "Error adding to cart",
+	"pleaseEnterYourNameAndEmail": "Please enter your name and email. ",
+	"loginandregister":"Login | Register ",
+	"email": "name",
+	"password": "password",
+	"login": "login",
 	"category": {
 		"masalas": "Masalas",
 		"chatMasalas": "Chat Masalas",

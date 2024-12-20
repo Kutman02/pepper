@@ -93,4 +93,6 @@ export const CategoryFilter = styled.div(() => ({
 			fontSize: '12px', // Меньше текст на мобильных устройствах
 		},
 	},
+	
 }));
+

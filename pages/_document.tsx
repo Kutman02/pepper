@@ -5,7 +5,7 @@ const Document = () => {
 		<Html lang='en'>
 			<Head>
 				<meta name='description' content='Перец' />
-				<link rel='icon' href='/favicon.ico' />
+				{/*<link rel='icon' href='/favicon.ico' />*/}
 			</Head>
 
 			<body>

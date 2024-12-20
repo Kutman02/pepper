@@ -54,20 +54,20 @@ export const MobileMenu = styled.div(() => ({
 		padding: '10px 20px',
 		textDecoration: 'none',
 		color: black[100],
-		borderBottom: '1px solid #eaeaea',
+		borderBottom: '1px solidrgb(172, 86, 86)',
 	},
 }));
 
 export const MenuButton = styled.button(() => ({
 	background: 'none',
 	border: 'none',
-	fontSize: '24px',
+	fontSize: '30px',
 	cursor: 'pointer',
 	display: 'none',
 	//position: 'absolute',
 	left: '10px', // Расположение кнопки слева
 	top: '50%',
-	transform: 'translateY(-50%)',
+	//transform: 'translateY(-50%)',
 	'@media (max-width: 600px)': {
 		display: 'block',
 	},
@@ -80,15 +80,17 @@ export const Category = styled.span(() => ({
 
 export const LanguageSwitcher = styled.div(() => ({
 	display: 'flex',
-	gap: '10px',
+	gap: '0px',
 	marginLeft: 'auto',
+	
 
 	'& button': {
+		margin:'15px',
 		background: 'none',
 		border: '1px solid #ccc',
 		padding: '5px 10px',
 		cursor: 'pointer',
-		borderRadius: '4px',
+		borderRadius: '41px',
 		fontSize: '14px',
 		transition: 'all 0.3s',
 

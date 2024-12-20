@@ -1,5 +1,4 @@
 import React, { useState, useEffect } from 'react';
-import Image from 'next/image';
 import Link from 'next/link';
 import { useDispatch } from 'react-redux';
 import dynamic from 'next/dynamic';
@@ -15,6 +14,7 @@ import {
 import { routes } from '@src/constants/routes';
 import { updateGlobalSlice } from '@src/store/globalSlice';
 import { useTranslation } from 'react-i18next';
+//import Input from '@src/components/base/input';
 
 const BoxLogin = dynamic(() => import('./boxLogin'), { ssr: false });
 
@@ -28,6 +28,7 @@ const listCategory = [
 
 const Header = () => {
 	const [isMenuOpen, setIsMenuOpen] = useState(false); // Состояние для меню
+	const [searchTerm] = useState(''); // Состояние строки поиска
 	const { t, i18n } = useTranslation();
 	const dispatch = useDispatch();
 
@@ -46,27 +47,24 @@ const Header = () => {
 	};
 
 	// Функция для смены языка
-	const changeLanguage = (lang) => {
+	const changeLanguage = (lang: string) => {
 		i18n.changeLanguage(lang);
 	};
+
+	// Фильтруем категории по названию
+	const filteredCategories = listCategory.filter((item) =>
+		t(item.title).toLowerCase().includes(searchTerm.toLowerCase()),
+	);
 
 	return (
 		<HeaderContent>
 			<HeaderWrapper>
-				{/* Логотип */}
-				{/* <div>
-					<Link href='/'>
-						<Image src={logo} alt='logo' />
-						<span>Logo</span>
-					</Link>
-				</div> */}
-
 				{/* Кнопка меню для мобильных устройств */}
 				<MenuButton onClick={toggleMenu}>{isMenuOpen ? '✖' : '☰'}</MenuButton>
 
 				{/* Категории */}
 				<ListCategories>
-					{listCategory.map((item, index) => (
+					{filteredCategories.map((item, index) => (
 						<Link href={routes.category(item.link)} key={index}>
 							<Category>{t(item.title)}</Category>
 						</Link>
@@ -76,19 +74,18 @@ const Header = () => {
 				{/* Мобильное меню */}
 				{isMenuOpen && (
 					<MobileMenu>
-						{listCategory.map((item, index) => (
+						{/* Переключатель языка */}
+						<LanguageSwitcher>
+							<button onClick={() => changeLanguage('en')}>EN</button>
+							<button onClick={() => changeLanguage('ru')}>RU</button>
+						</LanguageSwitcher>
+						{filteredCategories.map((item, index) => (
 							<Link href={routes.category(item.link)} key={index}>
 								<Category>{t(item.title)}</Category>
 							</Link>
 						))}
 					</MobileMenu>
 				)}
-
-				{/* Переключатель языка */}
-				<LanguageSwitcher>
-					<button onClick={() => changeLanguage('en')}>EN</button>
-					<button onClick={() => changeLanguage('ru')}>RU</button>
-				</LanguageSwitcher>
 
 				{/* Блок авторизации */}
 				<BoxLogin />

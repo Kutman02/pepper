@@ -47,7 +47,7 @@ const CategoryProduct = ({ data }: CategoryProductType) => {
 						{t('FilterProducts.product')}
 					</p>
 					<div>
-						<span>{t('FilterProducts.filter')}</span>
+						{/*<span>{t('FilterProducts.filter')}</span>*/}
 						<Image src={filter} alt='filter' width={18} height={18} />
 					</div>
 				</FilterProducts>
@@ -71,7 +71,7 @@ const CategoryProduct = ({ data }: CategoryProductType) => {
 				</Search>
 
 				<div>
-					<span>{t('FilterProducts.priceRanget')}</span>
+					{/*<span>{t('FilterProducts.priceRanget')}</span>*/}
 
 					<PriceRange />
 				</div>

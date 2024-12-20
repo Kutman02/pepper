@@ -8,6 +8,7 @@ import Input from '@src/components/base/input';
 import { postAuth } from '@src/api/auth';
 import { routes } from '@src/constants/routes';
 import { updateGlobalSlice } from '../../../store/globalSlice';
+import { useTranslation } from 'react-i18next';
 import { Form, FormButton, LoginDescription, LoginWrapper, Password, Register } from './style';
 
 const LoginPage = () => {
@@ -29,7 +30,7 @@ const LoginPage = () => {
 			};
 		});
 	};
-
+	const { t } = useTranslation();
 	const handleSubmitForm = async () => {
 		const response = await postAuth(inputValues.email, inputValues.password);
 
@@ -60,15 +61,15 @@ const LoginPage = () => {
 				</Logo>*/}
 
 				<LoginDescription>
-					<p>Hello !</p>
-					<p>Please enter your name and email.</p>
+					{/*<p>Hello !</p>*/}
+					<p>{t('pleaseEnterYourNameAndEmail')}</p>
 				</LoginDescription>
 
 				<Form onSubmit={handleSubmit}>
 					<Input
 						width={'335px'}
 						height={'50px'}
-						placeholder='email'
+						placeholder={t('email')}
 						name='email'
 						value={inputValues.email}
 						onChange={handleChange}
@@ -78,7 +79,7 @@ const LoginPage = () => {
 							width={'335px'}
 							height={'50px'}
 							name='password'
-							placeholder='password'
+							placeholder={t('password')}
 							type={'password'}
 							value={inputValues.password}
 							onChange={handleChange}
@@ -87,7 +88,7 @@ const LoginPage = () => {
 
 					<FormButton>
 						<Button width={'335px'} height={'50px'} onClick={handleSubmitForm}>
-							Login
+							{t('login')}
 						</Button>
 					</FormButton>
 				</Form>
