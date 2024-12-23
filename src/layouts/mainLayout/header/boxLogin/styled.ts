@@ -1,28 +1,33 @@
+// Импортируем библиотеку для стилизации компонентов
 import styled from '@emotion/styled';
 
+// Стилизованный компонент для контейнера иконок
 export const DivIcon = styled.div(() => ({
-	display: 'flex',
-	padding: '0 10px',
+	display: 'flex', // Используем flexbox для выравнивания элементов по горизонтали
+	padding: '0 10px', // Отступы слева и справа
 }));
 
+// Стилизованный компонент для контейнера корзины
 export const DivIconCart = styled.div(() => ({
-	marginLeft: ' 15px',
+	marginLeft: '15px', // Добавляем отступ слева между иконками
 
+	// Стили для ссылок внутри контейнера корзины
 	'& a': {
-		position: 'relative',
+		position: 'relative', // Ссылка будет иметь относительное позиционирование для корректного позиционирования счетчика
 	},
 }));
 
+// Стилизованный компонент для отображения счетчика товаров в корзине
 export const Counter = styled.div(() => ({
-	position: 'absolute',
-	display: 'flex',
-	alignItems: 'center',
-	justifyContent: 'center',
-	backgroundColor: '#ef4056',
-	color: 'white',
-	height: 17,
-	width: 18,
-	borderRadius: 6,
-	top: 4,
-	right: '-10px',
+	position: 'absolute', // Абсолютное позиционирование относительно контейнера
+	display: 'flex', // Используем flexbox для выравнивания содержимого по центру
+	alignItems: 'center', // Выравнивание по вертикали
+	justifyContent: 'center', // Выравнивание по горизонтали
+	backgroundColor: '#ef4056', // Цвет фона счетчика (красный)
+	color: 'white', // Цвет текста счетчика (белый)
+	height: 17, // Высота счетчика
+	width: 18, // Ширина счетчика
+	borderRadius: 6, // Радиус скругления углов
+	top: 4, // Смещаем счетчик вниз от верхнего края контейнера на 4px
+	right: '-10px', // Смещаем счетчик вправо от правого края контейнера на -10px
 }));

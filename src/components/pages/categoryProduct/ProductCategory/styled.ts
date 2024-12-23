@@ -1,39 +1,45 @@
-import styled from '@emotion/styled';
-import theme from '@styles/theme';
+import styled from '@emotion/styled'; // Импортируем функцию для стилизации компонентов
+import theme from '@styles/theme'; // Импортируем тему, которая содержит цвета и другие настройки
 
-const { black, red } = theme.colors;
+const { black, red } = theme.colors; // Деструктурируем черный и красный цвета из темы
 
+// Компонент для товара, включая его контейнер
 export const Product = styled.div(() => ({
-	display: 'flex',
-	flexDirection: 'column',
-	alignItems: 'center',
-	margin: '20px 10px',
+	display: 'flex', // Используем flexbox для расположения элементов
+	flexDirection: 'column', // Располагаем элементы по вертикали (колонка)
+	alignItems: 'center', // Выравниваем элементы по центру по горизонтали
+	margin: '20px 10px', // Отступы вокруг компонента
 
 	'& a': {
-		display: 'flex',
-		flexDirection: 'column',
-		alignItems: 'center',
-		textDecoration: 'none',
+		// Стили для ссылки внутри компонента товара
+		display: 'flex', // Снова используем flexbox для вложенной ссылки
+		flexDirection: 'column', // Элементы внутри ссылки также располагать по вертикали
+		alignItems: 'center', // Выравниваем элементы по центру
+		textDecoration: 'none', // Убираем подчеркивание у ссылки
 	},
 }));
 
+// Компонент для отображения названия товара
 export const ProductName = styled.div(() => ({
-	fontSize: 20,
-	color: black[100],
+	fontSize: 20, // Устанавливаем размер шрифта
+	color: black[100], // Цвет текста — черный из темы
 }));
 
+// Компонент для отображения иконок и информации о предпочтениях
 export const ProductFavorites = styled.div(() => ({
-	display: 'flex',
-	alignItems: 'center',
-	marginTop: 10,
+	display: 'flex', // Используем flexbox для выравнивания элементов
+	alignItems: 'center', // Выравниваем элементы по вертикали по центру
+	marginTop: 10, // Отступ сверху
 }));
 
+// Компонент для отображения оценки товара
 export const Score = styled.div(() => ({
-	marginRight: 10,
+	marginRight: 10, // Отступ справа, чтобы не слипались элементы
 }));
 
+// Компонент для отображения цены товара
 export const ProductPrice = styled.span(() => ({
-	margin: '10px 0px 10px 0px',
-	fontSize: 18,
-	color: red[400],
+	margin: '10px 0px 10px 0px', // Отступы сверху и снизу
+	fontSize: 18, // Размер шрифта для цены
+	color: red[400], // Цвет текста — красный из темы
 }));

@@ -1,16 +1,20 @@
-import LoginPage from '@src/components/pages/login';
-import Head from 'next/head';
+// Импортируем необходимые компоненты для страницы
+import LoginPage from '@src/components/pages/login'; // Компонент страницы логина
+import Head from 'next/head'; // Для работы с <head> документа, например, для тега <title>
 
 const Login = () => {
 	return (
 		<>
+			{/* Компонент Head для добавления мета-данных в <head> документа */}
 			<Head>
-				<title>Логин</title>
+				<title>Логин</title> {/* Заголовок страницы */}
 			</Head>
 
+			{/* Отображаем компонент страницы логина */}
 			<LoginPage />
 		</>
 	);
 };
 
+// Экспортируем компонент для использования в других частях приложения
 export default Login;

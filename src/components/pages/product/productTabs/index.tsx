@@ -1,29 +1,45 @@
-import React from 'react';
-import { DescriptionTabs, Tab, Tabs, Wrapper } from './styled';
-import { useTranslation } from 'react-i18next';
+import React from 'react'; // Импортируем React для работы с компонентами
+import { DescriptionTabs, Tab, Tabs, Wrapper } from './styled'; // Импортируем стилизованные компоненты
+import { useTranslation } from 'react-i18next'; // Импортируем хук для работы с переводами
 
+// Определяем тип данных для вкладок
 type ProductTabsType = {
-	content: string;
-	title: string;
+	content: string; // Содержимое вкладки
+	title: string; // Заголовок вкладки
 };
 
 const ProductTabs = ({ data }: any) => {
-	const { t } = useTranslation();
+	// Принимаем данные как пропс
+	const { t } = useTranslation(); // Инициализируем хук для переводов
+
 	return (
 		<Wrapper>
+			{' '}
+			{/* Окружает все в стилизованный контейнер */}
 			<Tabs>
-				<Tab>{t('productContent.productDescription')}</Tab>
+				{' '}
+				{/* Стилизованная обертка для вкладок */}
+				<Tab>{t('productContent.productDescription')}</Tab> {/* Текст для вкладки, переведенный на нужный язык */}
 			</Tabs>
 			<DescriptionTabs>
-				{data.map((item: ProductTabsType, index: number) => (
-					<React.Fragment key={index}>
-						<h3>{item.title}</h3>
-						<p>{item.content}</p>
-					</React.Fragment>
-				))}
+				{' '}
+				{/* Стилизованная обертка для контента вкладки */}
+				{data.map(
+					(
+						item: ProductTabsType,
+						index: number, // Перебираем данные и отображаем каждую вкладку
+					) => (
+						<React.Fragment key={index}>
+							{' '}
+							{/* Оборачиваем контент вкладки в React.Fragment, чтобы избежать лишних DOM-узлов */}
+							<h3>{item.title}</h3> {/* Заголовок вкладки */}
+							<p>{item.content}</p> {/* Содержимое вкладки */}
+						</React.Fragment>
+					),
+				)}
 			</DescriptionTabs>
 		</Wrapper>
 	);
 };
 
-export default ProductTabs;
+export default ProductTabs; // Экспортируем компонент для использования в других частях приложения

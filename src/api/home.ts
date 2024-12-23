@@ -1,24 +1,33 @@
+// Импортируем данные для главной страницы из локальной базы данных.
 import { homeData } from '@src/services/database/homeData';
 
+// Определяем тип данных, которые возвращаются для главной страницы.
 type DataType = {
-	slider: {};
-	bannerMiddle: {};
-	bannerBottom: {};
-	sliderProducts: {};
+	slider: {}; // Данные для слайдера (объект, структура зависит от данных).
+	bannerMiddle: {}; // Данные для среднего баннера.
+	bannerBottom: {}; // Данные для нижнего баннера.
+	sliderProducts: {}; // Данные для продуктов, отображаемых в слайдере.
 };
 
+// Определяем тип ответа функции.
+// Поле `data` содержит структуру `DataType`, включающую все секции главной страницы.
+// Поле `status` указывает результат операции: 200 (успех) или 404 (данные не найдены).
 type Response = {
-	data: DataType;
-	status: 200 | 404;
+	data: DataType; // Данные главной страницы.
+	status: 200 | 404; // HTTP статус ответа.
 };
 
+// Функция для получения данных главной страницы.
+// Она возвращает Promise с объектом типа `Response`.
 export const getHomeData = () => {
 	return new Promise<Response>((resolve) => {
+		// Формируем успешный результат, используя данные из `homeData`.
 		const result: Response = {
-			data: homeData,
-			status: 200,
+			data: homeData, // Данные главной страницы.
+			status: 200, // Успех.
 		};
 
+		// Возвращаем результат, завершая Promise.
 		resolve(result);
 	});
 };

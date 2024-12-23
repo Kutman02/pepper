@@ -1,65 +1,74 @@
-import styled from '@emotion/styled';
-import theme from '@styles/theme';
+import styled from '@emotion/styled'; // Импортируем функцию для стилизации компонентов с использованием Emotion
+import theme from '@styles/theme'; // Импортируем тему, которая содержит глобальные стили
 
+// Контейнер для всех баннеров, выравнивает их по центру
 export const DivBanners = styled.div(() => ({
-	display: 'flex',
-	justifyContent: 'center',
+	display: 'flex', // Используем flexbox для выравнивания элементов
+	justifyContent: 'center', // Выравниваем элементы по горизонтали по центру
 
 	'@media (max-width: 1100px)': {
+		// Когда ширина экрана меньше 1100px, добавляем возможность оборачивать элементы в новые строки
 		flexWrap: 'wrap',
 	},
 }));
 
+// Контейнер для левых баннеров, располагает их в колонку
 export const DivBannersLeft = styled.div(() => ({
-	display: 'flex',
-	flexDirection: 'column',
-	justifyContent: 'space-between',
-	marginRight: '70px',
+	display: 'flex', // Используем flexbox для размещения дочерних элементов
+	flexDirection: 'column', // Располагаем дочерние элементы по вертикали
+	justifyContent: 'space-between', // Равномерно распределяем элементы по вертикали
+	marginRight: '70px', // Отступ справа от контейнера
 
 	'& img': {
-		borderRadius: '10px',
+		// Стили для изображений внутри этого контейнера
+		borderRadius: '10px', // Закругляем углы изображений
 	},
 
 	'@media (max-width: 1100px)': {
-		margin: '0 20px',
+		// Когда ширина экрана меньше 1100px, добавляем отступы и меняем поведение изображений
+		margin: '0 20px', // Отступы слева и справа
 
 		'& img': {
-			marginTop: 20,
+			marginTop: 20, // Отступ сверху для изображений
 		},
 	},
 
 	'@media (max-width: 600px)': {
+		// Когда ширина экрана меньше 600px, делаем изображения адаптивными
 		'& img': {
-			width: '100%',
-			height: 'auto',
+			width: '100%', // Ширина изображения растягивается на весь контейнер
+			height: 'auto', // Высота изображения сохраняет пропорции
 		},
 	},
 }));
 
+// Контейнер для правых баннеров, добавляем курсор и стили для изображений
 export const DivBannersRight = styled.div(() => ({
-	cursor: 'pointer',
+	cursor: 'pointer', // Устанавливаем курсор в виде указателя, чтобы показать, что элемент кликабельный
 
 	'& img': {
-		borderRadius: '10px',
+		borderRadius: '10px', // Закругляем углы изображений
 
 		'@media (max-width: 1100px)': {
-			marginTop: 20,
+			marginTop: 20, // Отступ сверху для изображений на экранах меньше 1100px
 		},
 
 		'@media (max-width: 600px)': {
-			width: '100%',
-			height: 'auto',
+			width: '100%', // Ширина изображения растягивается на весь контейнер
+			height: 'auto', // Высота изображения сохраняет пропорции
 		},
 	},
 }));
 
+// Обертка для всей домашней страницы, применяем глобальные стили из темы
 export const HomeWrapper = styled.div(() => ({
-	...theme.wrapper,
+	...theme.wrapper, // Используем глобальные стили из темы
 }));
 
+// Контейнер для широкоформатного баннера, заставляем изображение растягиваться по ширине
 export const BannerFullWidth = styled.div(() => ({
 	'& img': {
-		width: '100%',
-		height: 'auto',
+		width: '100%', // Ширина изображения растягивается на 100% от родительского контейнера
+		height: 'auto', // Высота изображения сохраняет пропорции
 	},
 }));

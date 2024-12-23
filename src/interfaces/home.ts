@@ -1,43 +1,58 @@
+// Импорт типа StaticImageData для использования с изображениями в Next.js
 import { StaticImageData } from 'next/image';
 
+// Интерфейс для типизации данных, получаемых от API для домашней страницы
 export interface HomeDataApiResponse {
+	// Данные для слайдера на главной странице
 	slider: {
-		link: StaticImageData;
-		alt: string;
+		link: StaticImageData; // Ссылка на изображение с типом StaticImageData
+		alt: string; // Атрибут alt для изображения
 	};
+
+	// Данные для среднего баннера на главной странице
 	bannerMiddle: {
-		link: StaticImageData;
-		alt: string;
+		link: StaticImageData; // Ссылка на изображение для баннера
+		alt: string; // Атрибут alt для изображения баннера
 	};
+
+	// Данные для нижнего баннера на главной странице
 	bannerBottom: {
 		medium: {
-			link: StaticImageData;
-			alt: string;
+			// Медиум-версия изображения
+			link: StaticImageData; // Ссылка на изображение
+			alt: string; // Атрибут alt для изображения
 		};
 		small: {
-			link: StaticImageData;
-			alt: string;
-		}[];
+			// Маленькие версии изображений в массиве
+			link: StaticImageData; // Ссылка на изображение
+			alt: string; // Атрибут alt для изображения
+		}[]; // Массив объектов с изображениями для маленьких версий
 	};
+
+	// Данные для продуктов, отображаемых на главной странице
 	sliderProducts: {
 		bestOffer: {
-			title: string;
+			// Продукты с лучшими предложениями
+			title: string; // Заголовок для раздела с лучшими предложениями
 			list: {
-				id: string;
-				images: StaticImageData;
-				title: string;
-				price: number;
-			}[];
+				// Список продуктов
+				id: string; // Уникальный идентификатор продукта
+				images: StaticImageData; // Изображения продукта
+				title: string; // Название продукта
+				price: number; // Цена продукта
+			}[]; // Массив объектов с данными о продуктах
 		};
 
 		bestSelling: {
-			title: string;
+			// Продукты с лучшими продажами
+			title: string; // Заголовок для раздела с самыми продаваемыми товарами
 			list: {
-				id: string;
-				images: StaticImageData;
-				title: string;
-				price: number;
-			}[];
+				// Список продуктов
+				id: string; // Уникальный идентификатор продукта
+				images: StaticImageData; // Изображение продукта
+				title: string; // Название продукта
+				price: number; // Цена продукта
+			}[]; // Массив объектов с данными о продуктах
 		};
 	};
 }

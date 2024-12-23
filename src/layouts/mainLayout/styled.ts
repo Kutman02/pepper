@@ -1,8 +1,10 @@
-import styled from '@emotion/styled';
-import theme from '@styles/theme';
+// Импортируем необходимые библиотеки
+import styled from '@emotion/styled'; // Для создания стилизованных компонентов
+import theme from '@styles/theme'; // Импортируем объект с темой, в котором могут быть базовые стили
 
+// Создаем стилизованный компонент для основного контента страницы
 export const Main = styled.main(() => ({
-	...theme.wrapper,
-	paddingTop: 80,
-	minHeight: '100vh',
+	...theme.wrapper, // Используем стили из объекта theme.wrapper, например, для обертки с шириной или отступами
+	paddingTop: 80, // Добавляем отступ сверху (80px)
+	minHeight: '100vh', // Устанавливаем минимальную высоту на 100% от высоты экрана, чтобы компонент всегда заполнял всю страницу по вертикали
 }));

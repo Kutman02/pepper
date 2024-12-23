@@ -54,7 +54,7 @@ const CategoryProduct = ({ data }: CategoryProductType) => {
 
 				<Products>
 					{/* Передаем отфильтрованные товары */}
-					<ProductCategory list={filteredData} />
+					<ProductCategory list={filteredData as any} />
 				</Products>
 			</ProductContent>
 

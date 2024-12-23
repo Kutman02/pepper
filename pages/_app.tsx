@@ -1,29 +1,38 @@
-import type { AppProps } from 'next/app';
-import MainLayout from '@src/layouts/mainLayout';
-import '@src/styles/globals.css';
-import { Suspense } from 'react';
-import { useTranslation } from 'react-i18next';
+// Импортируем типы и компоненты для настройки приложения Next.js
+import type { AppProps } from 'next/app'; // Типизация для пропсов приложения
+import MainLayout from '@src/layouts/mainLayout'; // Главный макет (layout) для всех страниц
+import '@src/styles/globals.css'; // Импортируем глобальные стили
+import { Suspense } from 'react'; // Компонент Suspense для асинхронных операций, например, загрузки данных
 
-const App = ({ Component, pageProps }: AppProps) => {
-	const { i18n } = useTranslation();
+// Основной компонент приложения
+const App = ({ Component, pageProps, router }: AppProps) => {
+	// Хук для изменения языка (временно закомментирован)
+	// const { i18n } = useTranslation();
 
-	const changeLanguage = (language: string) => {
-		i18n.changeLanguage(language);
-	};
+	// Функция для изменения языка (временно закомментирована)
+	// const changeLanguage = (language: string) => {
+	// 	i18n.changeLanguage(language);
+	// };
 
+	// Возвращаем главный макет и передаем компонент страницы с пропсами
 	return (
 		<MainLayout>
-			<Component {...pageProps} />
+			{/* Компонент текущей страницы */}
+			<Component {...pageProps} router={router} />
 		</MainLayout>
 	);
 };
 
-export function WrappedApp() {
+// Обертка для компонента приложения с использованием Suspense
+// Suspense нужен для отображения запасного контента, пока основной контент не загрузится
+export function WrappedApp(appProps: AppProps) {
 	return (
 		<Suspense fallback='...Load'>
-			<App />
+			{/* Отображаем приложение внутри Suspense */}
+			<App {...appProps} />
 		</Suspense>
 	);
 }
 
-export default App;
+// Экспортируем WrappedApp как основной компонент для Next.js
+export default WrappedApp;

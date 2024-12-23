@@ -1,13 +1,15 @@
-import { ChangeEvent, useState } from 'react';
-import { useRouter } from 'next/router';
-import { useDispatch } from 'react-redux';
-import CartProducts from '@src/components/pages/userCart/cartProducts';
-import { updateGlobalSlice } from '@src/store/globalSlice';
-import Input from '@src/components/base/input';
-import Button from '@src/components/base/button';
-import { postNewOrder } from '@src/api/order';
-import { routes } from '@src/constants/routes';
-import { useTranslation } from 'react-i18next';
+import { ChangeEvent, useState } from 'react'; // Импортируем хуки для работы с состоянием и событиями
+import { useRouter } from 'next/router'; // Хук для работы с маршрутизацией в Next.js
+import { useDispatch } from 'react-redux'; // Хук для отправки действий в Redux store
+import CartProducts from '@src/components/pages/userCart/cartProducts'; // Компонент для отображения списка товаров в корзине
+import { updateGlobalSlice } from '@src/store/globalSlice'; // Действие для обновления глобального состояния
+import Input from '@src/components/base/input'; // Компонент для ввода данных
+import Button from '@src/components/base/button'; // Компонент кнопки
+import { postNewOrder } from '@src/api/order'; // API-запрос для создания нового заказа
+import { routes } from '@src/constants/routes'; // Список маршрутов в приложении
+import { useTranslation } from 'react-i18next'; // Хук для работы с многоязычностью
+
+// Импортируем стилизованные компоненты
 import {
 	BuyButton,
 	CartTitle,
@@ -19,78 +21,102 @@ import {
 	Wrapper,
 } from './styled';
 
+// Определяем типы пропсов для компонента
 type UserCartType = {
-	cartList?: any;
-	setCartList?: any;
+	cartList?: any; // Список товаров в корзине
+	setCartList?: any; // Функция для обновления списка товаров в корзине
 };
 
+// Основной компонент корзины пользователя
 const UserCart = ({ cartList, setCartList }: UserCartType) => {
-	const { t } = useTranslation();
-	const dispatch = useDispatch();
+	const { t } = useTranslation(); // Получаем функцию перевода
+	const dispatch = useDispatch(); // Получаем функцию для отправки действий в Redux
 
+	// Состояние для значений ввода (страна, штат, почтовый код)
 	const [inputValues, setInputValues] = useState({
-		country: '',
-		state: '',
-		postalCode: '',
+		country: '', // Страна
+		state: '', // Штат
+		postalCode: '', // Почтовый код
 	});
-	const router = useRouter();
 
+	const router = useRouter(); // Получаем объект маршрутизатора Next.js
+
+	// Обработчик изменения значений ввода
 	const handleChange = (e: ChangeEvent<HTMLInputElement>) => {
-		const { name, value } = e.target;
+		const { name, value } = e.target; // Получаем имя и значение поля
 
+		// Обновляем состояние с новыми значениями
 		setInputValues((prev) => {
 			return {
-				...prev,
-				[name]: value,
+				...prev, // Сохраняем старые значения
+				[name]: value, // Обновляем только измененное поле
 			};
 		});
 	};
 
+	// Обработчик отправки формы
 	const handleSubmitForm = async () => {
+		// Отправляем запрос на создание нового заказа
 		const response = await postNewOrder(inputValues.country, inputValues.state, inputValues.postalCode);
 
+		// Если заказ успешно создан, перенаправляем пользователя в профиль и очищаем корзину
 		if (response.status === 201) {
-			router.push(routes.profile);
-			dispatch(updateGlobalSlice({ cartTotal: null }));
+			router.push(routes.profile); // Перенаправляем на страницу профиля
+			dispatch(updateGlobalSlice({ cartTotal: null })); // Очищаем данные корзины в глобальном состоянии
 		}
 	};
 
 	return (
 		<>
+			{/* Если в корзине есть товары */}
 			{cartList.length ? (
 				<Wrapper>
+					{' '}
+					{/* Стилизованный контейнер */}
 					<ProductsShoppingCart>
-						<CartTitle>{t('userCart.Products')}</CartTitle>
-
-						<CartProducts cartList={cartList} setCartList={setCartList} />
+						{' '}
+						{/* Секция для отображения товаров в корзине */}
+						<CartTitle>{t('userCart.Products')}</CartTitle> {/* Заголовок секции с переводом */}
+						<CartProducts cartList={cartList} setCartList={setCartList} />{' '}
+						{/* Компонент для отображения списка товаров */}
 					</ProductsShoppingCart>
-
+					{/* Секция для ввода данных для оформления заказа */}
 					<div>
-						<CartTitle>{t('userCart.orderSummary')}</CartTitle>
+						<CartTitle>{t('userCart.orderSummary')}</CartTitle> {/* Заголовок секции с переводом */}
 						<Form>
-							<DescriptionForm>{t('userCart.orderSummarytitle')}</DescriptionForm>
-
+							{' '}
+							{/* Форма для ввода данных */}
+							<DescriptionForm>{t('userCart.orderSummarytitle')}</DescriptionForm> {/* Описание формы с переводом */}
+							{/* Поле для ввода страны */}
 							<FormInput>
-								<FormInputTitle>{t('userCart.country')}</FormInputTitle>
-								<Input width='100%' height={50} name='country' value={inputValues.country} onChange={handleChange} />
+								<FormInputTitle>{t('userCart.country')}</FormInputTitle> {/* Заголовок поля с переводом */}
+								<Input
+									width='100%'
+									height={50}
+									name='country'
+									value={inputValues.country}
+									onChange={handleChange}
+								/>{' '}
+								{/* Поле ввода */}
 							</FormInput>
-
+							{/* Поле для ввода штата */}
 							<FormInput>
-								<FormInputTitle>{t('userCart.state')}</FormInputTitle>
-								<Input width='100%' height={50} name='state' value={inputValues.state} onChange={handleChange} />
+								<FormInputTitle>{t('userCart.state')}</FormInputTitle> {/* Заголовок поля с переводом */}
+								<Input width='100%' height={50} name='state' value={inputValues.state} onChange={handleChange} />{' '}
+								{/* Поле ввода */}
 							</FormInput>
-
+							{/* Поле для ввода почтового кода */}
 							<FormInput>
-								<FormInputTitle>{t('userCart.postalCode')}</FormInputTitle>
+								<FormInputTitle>{t('userCart.postalCode')}</FormInputTitle> {/* Заголовок поля с переводом */}
 								<Input
 									width='100%'
 									height={50}
 									name='postalCode'
 									value={inputValues.postalCode}
-									onChange={handleChange}
+									onChange={handleChange} // Обработчик изменения
 								/>
 							</FormInput>
-
+							{/* Кнопка для продолжения покупок или оформления заказа */}
 							<BuyButton>
 								<Button width={145} onClick={handleSubmitForm}>
 									{t('userCart.continueShopping')}
@@ -100,10 +126,10 @@ const UserCart = ({ cartList, setCartList }: UserCartType) => {
 					</div>
 				</Wrapper>
 			) : (
-				<span>{t('userCart.shoppingBasketIsEmpty')}</span>
+				<span>{t('userCart.shoppingBasketIsEmpty')}</span> // Если корзина пуста, отображаем сообщение
 			)}
 		</>
 	);
 };
 
-export default UserCart;
+export default UserCart; // Экспортируем компонент для использования в других частях приложения
