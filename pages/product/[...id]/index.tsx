@@ -3,22 +3,26 @@ import type { GetServerSideProps } from 'next'; // Для получения д�
 import { getProductData } from '@src/api/product'; // Функция для получения данных о продукте с API
 import ProductContent from '@src/components/pages/product'; // Компонент для отображения данных о продукте
 import Head from 'next/head'; // Для работы с <head> документа, например, для тега <title>
-import { StaticImageData } from 'next/image'; // Для работы с изображениями в Next.js
 
 // Типизация для данных продукта
+type ProductData = {
+	category: string;
+	description: Array<{
+		title: string;
+		content: string;
+	}>;
+	id: string;
+	images: string[];
+	price: number;
+	score: number;
+	summery: string;
+	title: string;
+};
+
 type ProductType = {
 	data: {
-		data: {
-			category: string; // Категория продукта
-			description: []; // Описание продукта
-			id: string; // Идентификатор продукта
-			images: StaticImageData[]; // Массив изображений продукта
-			price: number; // Цена продукта
-			score: number; // Рейтинг продукта
-			summery: string; // Краткое описание продукта
-			title: string; // Название продукта
-		};
-		status: number; // Статус ответа API (например, 200 - успешно)
+		data: ProductData;
+		status: number;
 	};
 };
 
@@ -30,16 +34,18 @@ const Product = (props: ProductType) => {
 	console.log('props', props);
 
 	return (
-		<>
+		<div className='min-h-screen bg-gray-50'>
 			{/* Компонент Head для добавления мета-данных в <head> документа */}
 			<Head>
 				<title>Перец</title> {/* Заголовок страницы */}
 			</Head>
 
-			{/* Если данные получены успешно, отображаем компонент с информацией о продукте */}
-			{product ? <ProductContent data={props.data.data} /> : 'There is no product'}
-			{/* Если продукта нет, выводим сообщение об этом */}
-		</>
+			<div className='container mx-auto px-4 py-8'>
+				{/* Если данные получены успешно, отображаем компонент с информацией о продукте */}
+				{product ? <ProductContent data={props.data.data} /> : 'There is no product'}
+				{/* Если продукта нет, выводим сообщение об этом */}
+			</div>
+		</div>
 	);
 };
 

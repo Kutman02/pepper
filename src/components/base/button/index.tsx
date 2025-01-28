@@ -1,54 +1,32 @@
-// Импортируем контейнер для кнопки, стилизованный через styled-components.
-import { ButtonContainer } from './styled';
+import React, { ButtonHTMLAttributes } from 'react';
 
-// Определяем типы пропсов, которые принимает компонент.
-type ButtonProps = {
-	children: string; // Текст или содержимое кнопки.
-	radius?: number; // Радиус закругления углов кнопки (по умолчанию: 7).
-	color?: string | number; // Цвет текста кнопки (по умолчанию: #2b2b71).
-	background?: string | number; // Цвет фона кнопки (по умолчанию: белый).
-	width?: string | number; // Ширина кнопки (по умолчанию: 100px).
-	height?: string | number; // Высота кнопки (по умолчанию: 40px).
-	disable?: boolean; // Отключена ли кнопка (по умолчанию: false).
-	borderColor?: string | number; // Цвет рамки кнопки (по умолчанию: '3px solid rgb(184, 184, 211)').
-	onClick?: Function; // Обработчик события клика.
-	props?: any; // Дополнительные пропсы, передаваемые в компонент.
-	fontSize?: number; // Размер шрифта текста кнопки.
-};
+interface ButtonProps extends ButtonHTMLAttributes<HTMLButtonElement> {
+	width?: number;
+	fontSize?: number;
+	className?: string;
+}
 
-// Создаем компонент кнопки с использованием пропсов.
-const Button = ({
-	children, // Содержимое кнопки.
-	radius = 7, // Устанавливаем значение по умолчанию для закругления углов.
-	color = '#2b2b71', // Устанавливаем цвет текста по умолчанию.
-	background = 'white', // Устанавливаем цвет фона по умолчанию.
-	width = 100, // Устанавливаем ширину по умолчанию.
-	height = 40, // Устанавливаем высоту по умолчанию.
-	disable = false, // Устанавливаем состояние кнопки по умолчанию (включена).
-	borderColor = '3px solidrgb(184, 184, 211)', // Устанавливаем цвет рамки по умолчанию.
-	onClick, // Передаем обработчик клика, если он задан.
-	fontSize, // Размер шрифта (опциональный).
-	...props // Передаем дополнительные пропсы.
-}: ButtonProps) => {
+const Button: React.FC<ButtonProps> = ({ 
+	children, 
+	width, 
+	fontSize, 
+	className = '', 
+	...props 
+}) => {
+	const style = {
+		width: width ? `${width}px` : 'auto',
+		fontSize: fontSize ? `${fontSize}px` : '16px',
+	};
+
 	return (
-		<ButtonContainer
-			{...props} // Передаем все дополнительные пропсы в контейнер.
-			onClick={onClick} // Устанавливаем обработчик клика.
-			styles={{
-				// Передаем стили в контейнер в виде объекта.
-				radius,
-				color,
-				width,
-				height,
-				background,
-				borderColor,
-				disable,
-				fontSize,
-			}}>
-			{children} {/* Отображаем содержимое кнопки. */}
-		</ButtonContainer>
+		<button
+			className={`bg-primary text-white rounded-lg transition-colors ${className}`}
+			style={style}
+			{...props}
+		>
+			{children}
+		</button>
 	);
 };
 
-// Экспортируем компонент для использования в других частях приложения.
 export default Button;

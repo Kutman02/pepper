@@ -4,26 +4,8 @@ import { useDispatch } from 'react-redux'; // Хук для отправки д�
 import close from 'public/icons/close.png'; // Импорт изображения для кнопки "Закрыть"
 import Button from '../../../base/button'; // Компонент Button (кнопка)
 import { postCartChange } from '@src/api/cart'; // API-запрос для изменения корзины
-import { cloneList } from '@src/utils'; // Утилита для клонирования списка
 import { updateGlobalSlice } from '@src/store/globalSlice'; // Действие для обновления глобального состояния Redux
 import { useTranslation } from 'react-i18next'; // Хук для работы с переводами (i18n)
-import {
-	CounterNumber, // Стилизованный компонент для отображения количества
-	OrderedProduct, // Стилизованный компонент для обертки товара
-	OrderedProductDetails, // Стилизованный компонент для обертки деталей товара
-	Price, // Стилизованный компонент для отображения цены
-	ProductCounter, // Стилизованный компонент для счетчика товара
-	ProductName, // Стилизованный компонент для отображения названия товара
-	PriceProduct, // Стилизованный компонент для блока с ценой и итоговой суммой
-	Wrapper, // Стилизованный компонент для обертки каждого товара
-	Total, // Стилизованный компонент для текста "Итого"
-} from './styled';
-
-// Типизация пропсов компонента CartProducts
-type ProductSlideProps = {
-	cartList?: any; // Список товаров в корзине
-	setCartList?: any; // Функция для обновления состояния списка товаров
-};
 
 // Типизация для каждого товара в корзине
 type CartListType = {
@@ -38,8 +20,14 @@ type CartListType = {
 	total: number; // Количество товара в корзине
 };
 
+// Типизация пропсов компонента CartProducts
+type CartProductsProps = {
+	cartList: CartListType[];
+	setCartList: (updatedList: CartListType[]) => void;
+};
+
 // Компонент CartProducts для отображения товаров в корзине
-const CartProducts = ({ cartList, setCartList }: ProductSlideProps) => {
+const CartProducts = ({ cartList, setCartList }: CartProductsProps) => {
 	const { t } = useTranslation(); // Хук для работы с переводами
 	const dispatch = useDispatch(); // Хук для отправки действий в Redux
 
@@ -48,8 +36,8 @@ const CartProducts = ({ cartList, setCartList }: ProductSlideProps) => {
 		const response = await postCartChange(id, 1); // Запрос к API для увеличения количества товара на 1
 		if (response.status === 200) {
 			// Если запрос успешен
-			const index = cartList.findIndex((item: CartListType) => item.id === id); // Находим индекс товара по его id
-			const listCloned = cloneList(cartList); // Клонируем список товаров, чтобы не мутировать оригинальный
+			const index = cartList.findIndex((item) => item.id === id); // Находим индекс товара по его id
+			const listCloned = [...cartList];
 			listCloned[index].total += 1; // Увеличиваем количество товара
 			setCartList(listCloned); // Обновляем список товаров в состоянии
 		}
@@ -60,8 +48,8 @@ const CartProducts = ({ cartList, setCartList }: ProductSlideProps) => {
 		const response = await postCartChange(id, -1); // Запрос к API для уменьшения количества товара на 1
 		if (response.status === 200) {
 			// Если запрос успешен
-			const index = cartList.findIndex((item: CartListType) => item.id === id); // Находим индекс товара
-			const listCloned = cloneList(cartList); // Клонируем список товаров
+			const index = cartList.findIndex((item) => item.id === id); // Находим индекс товара
+			const listCloned = [...cartList];
 			listCloned[index].total -= 1; // Уменьшаем количество товара
 			setCartList(listCloned); // Обновляем список товаров в состоянии
 		}
@@ -73,8 +61,8 @@ const CartProducts = ({ cartList, setCartList }: ProductSlideProps) => {
 		if (response.status === 200) {
 			// Если запрос успешен
 			const cartListDelete = JSON.parse(localStorage.getItem('cartList') || '[]'); // Получаем обновленный список корзины из localStorage
-			const index = cartList.findIndex((item: CartListType) => item.id === id); // Находим индекс товара
-			const listCloned = cloneList(cartList); // Клонируем список товаров
+			const index = cartList.findIndex((item) => item.id === id); // Находим индекс товара
+			const listCloned = [...cartList];
 			listCloned.splice(index, 1); // Удаляем товар из списка
 			setCartList(listCloned); // Обновляем список товаров в состоянии
 			dispatch(updateGlobalSlice({ cartTotal: cartListDelete?.length })); // Обновляем общее количество товаров в глобальном состоянии Redux
@@ -83,43 +71,40 @@ const CartProducts = ({ cartList, setCartList }: ProductSlideProps) => {
 
 	// JSX-рендеринг для каждого товара в корзине
 	return (
-		<>
-			{cartList.map(
-				(
-					item: CartListType,
-					index: number, // Проходим по каждому товару в корзине
-				) => (
-					<Wrapper key={index}>
-						{' '}
-						{/* Обертка для каждого товара */}
-						<OrderedProduct>
-							<Image src={item.images[0]} alt='image' width={150} height={150} /> {/* Изображение товара */}
-							<OrderedProductDetails>
-								<ProductName>{item.title}</ProductName> {/* Название товара */}
-								<ProductCounter>
-									<Button
-										borderColor={'none'}
-										width={40}
-										height={35}
-										onClick={() => (item.total > 1 ? decrement(item.id) : '')}>
-										- {/* Кнопка для уменьшения количества */}
-									</Button>
-									<CounterNumber>{item.total}</CounterNumber> {/* Отображение текущего количества товара */}
-									<Button borderColor={'none'} width={40} height={35} onClick={() => increment(item.id)}>
-										+ {/* Кнопка для увеличения количества */}
-									</Button>
-								</ProductCounter>
-								<PriceProduct>
-									<Total>{t('totalt')}</Total> {/* Отображение текста "Итого" */}
-									<Price>{`${item.price * item.total} сом`}</Price> {/* Отображение итоговой суммы за товар */}
-								</PriceProduct>
-							</OrderedProductDetails>
-						</OrderedProduct>
-						<Image src={close} alt='close' onClick={() => deleteItem(item.id)} /> {/* Картинка для кнопки "Удалить" */}
-					</Wrapper>
-				),
-			)}
-		</>
+		<div className='space-y-4'>
+			{cartList.map((item, index) => (
+				<div key={index} className='flex items-center justify-between p-4 border border-gray-200 rounded-lg bg-white'>
+					<div className='flex items-center gap-6'>
+						<div className='relative w-[150px] h-[150px]'>
+							<Image src={item.images[0]} alt='product' fill className='object-cover rounded-lg' />
+						</div>
+						<div className='space-y-4'>
+							<h3 className='text-lg font-medium text-gray-900'>{item.title}</h3>
+							<div className='flex items-center gap-2'>
+								<Button
+									onClick={() => (item.total > 1 ? decrement(item.id) : '')}
+									className='w-10 h-9 flex items-center justify-center hover:bg-gray-100 rounded-md'>
+									-
+								</Button>
+								<span className='w-10 text-center font-medium'>{item.total}</span>
+								<Button
+									onClick={() => increment(item.id)}
+									className='w-10 h-9 flex items-center justify-center hover:bg-gray-100 rounded-md'>
+									+
+								</Button>
+							</div>
+							<div className='space-y-1'>
+								<span className='text-sm text-gray-500'>{t('totalt')}</span>
+								<div className='text-lg font-bold text-primary'>{`${item.price * item.total} сом`}</div>
+							</div>
+						</div>
+					</div>
+					<button onClick={() => deleteItem(item.id)} className='p-2 hover:bg-gray-100 rounded-full transition-colors'>
+						<Image src={close} alt='remove' width={18} height={18} />
+					</button>
+				</div>
+			))}
+		</div>
 	);
 };
 

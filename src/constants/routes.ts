@@ -1,20 +1,20 @@
 // Объект, который содержит маршруты для разных страниц приложения
 export const routes = {
 	// Маршрут для главной страницы
-	home: `/`,
+	home: '/',
 
 	// Маршрут для страницы входа
-	login: `/login`,
+	login: '/login',
 
 	// Маршрут для страницы корзины
-	cart: `/cart`,
+	cart: '/cart',
 
 	// Маршрут для страницы профиля пользователя
-	profile: `/profile`,
+	profile: '/profile',
 
 	// Функция, которая генерирует маршрут для страницы продукта по его id
 	product: (id: string) => `/product/${id}`,
 
 	// Функция, которая генерирует маршрут для страницы категории по её id
-	category: (id: string) => `/category/${id}`,
-};
+	category: (slug: string) => `/category/${slug}`,
+} as const;

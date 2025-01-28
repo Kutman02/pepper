@@ -6,9 +6,17 @@ import { getCartList } from '@src/api/cart'; // Функция для получ
 import UserCart from '@src/components/pages/userCart'; // Компонент для отображения корзины пользователя
 import { routes } from '@src/constants/routes'; // Константы маршрутов для навигации
 
+type CartItem = {
+	id: string;
+	title: string;
+	price: number;
+	total: number;
+	images: string[];
+};
+
 const Cart = () => {
 	// Состояние для хранения списка товаров в корзине
-	const [cartList, setCartList] = useState([]);
+	const [cartList, setCartList] = useState<CartItem[]>([]);
 	// Хук для получения объекта роутера
 	const router = useRouter();
 
@@ -30,18 +38,20 @@ const Cart = () => {
 			// Если данные есть, запрашиваем данные корзины
 			getCart();
 		}
-	}, []); // Пустой массив зависимостей, чтобы этот эффект сработал только один раз при монтировании компонента
+	}, [router]); // Пустой массив зависимостей, чтобы этот эффект сработал только один раз при монтировании компонента
 
 	return (
-		<>
+		<div className='min-h-screen bg-gray-50'>
 			{/* Добавляем заголовок страницы */}
 			<Head>
 				<title>Корзина</title>
 			</Head>
 
-			{/* Отображаем компонент корзины с переданным списком товаров */}
-			<UserCart cartList={cartList} setCartList={setCartList} />
-		</>
+			<div className='container mx-auto px-4 py-8'>
+				{/* Отображаем компонент корзины с переданным списком товаров */}
+				<UserCart cartList={cartList} setCartList={setCartList} />
+			</div>
+		</div>
 	);
 };
 

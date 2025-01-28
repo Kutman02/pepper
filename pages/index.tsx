@@ -19,14 +19,16 @@ type HomeProps = {
 
 const Home = ({ data }: HomeProps) => {
 	return (
-		<div>
+		<div className='min-h-screen bg-gray-50'>
 			{/* Компонент Head для добавления мета-данных в <head> документа */}
 			<Head>
 				<title>Перец</title> {/* Заголовок страницы */}
 			</Head>
 
-			{/* Отображаем контент главной страницы с переданными данными */}
-			<HomeContent data={data} />
+			<div className='container mx-auto px-4 py-8'>
+				{/* Отображаем контент главной страницы с переданными данными */}
+				<HomeContent data={data} />
+			</div>
 		</div>
 	);
 };

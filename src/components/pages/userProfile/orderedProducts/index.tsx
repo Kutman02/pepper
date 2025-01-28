@@ -3,7 +3,6 @@ import { useEffect, useState } from 'react'; // useState для управлен
 import accepted from 'public/icons/accepted.png'; // Импортируем изображение "accepted" для отображения состояния заказа
 import { getMyOrders } from '@src/api/order'; // Импортируем функцию для получения заказов пользователя
 import OrderedProduct from './orderedProduct'; // Импортируем компонент для отображения товаров в заказе
-import { Wrapper, OrderedProductWrapper, CartContent } from './styled'; // Импортируем стилизованные компоненты
 import { useTranslation } from 'react-i18next'; // Для поддержки многоязычности
 
 // Тип для данных заказа, описывающий структуру заказа
@@ -30,30 +29,36 @@ const OrderedProducts = () => {
 	}, []); // Пустой массив зависимостей означает, что эффект выполнится только один раз при монтировании
 
 	// Если заказов нет, отображаем сообщение
-	if (!orders.length) return <h3>{t('profilet.thereisNoOrder')}</h3>;
+	if (!orders.length) {
+		return (
+			<div className='text-center py-8'>
+				<h3 className='text-lg text-gray-600'>{t('profilet.thereisNoOrder')}</h3>
+			</div>
+		);
+	}
 
 	return (
-		<CartContent>
-			{/* Для каждого заказа отображаем его данные */}
-			{orders.map((item: OrderType, index: number) => (
-				<Wrapper key={index}>
-					{' '}
-					{/* Оборачиваем каждый заказ в Wrapper */}
-					<OrderedProductWrapper>
-						<span>
-							{/* Отображаем номер заказа, начиная с 1 */}
-							{t('profilet.orderNumber')}
-							{index + 1}
-						</span>
+		<div className='max-w-7xl mx-auto px-4 py-8'>
+			<div className='space-y-6'>
+				{orders.map((item: OrderType, index: number) => (
+					<div key={index} className='bg-white rounded-lg shadow-sm overflow-hidden'>
+						<div className='flex items-center justify-between p-4 border-b border-gray-100'>
+							<span className='text-lg font-medium text-gray-900'>
+								{t('profilet.orderNumber')}
+								{index + 1}
+							</span>
+							<div className='w-6 h-6 relative'>
+								<Image src={accepted} alt='accepted' className='object-contain' fill />
+							</div>
+						</div>
 
-						{/* Компонент для отображения продуктов в заказе */}
-						<OrderedProduct products={item.products} />
-					</OrderedProductWrapper>
-					{/* Изображение "accepted", показывающее успешное принятие заказа */}
-					<Image src={accepted} alt='accepted' />
-				</Wrapper>
-			))}
-		</CartContent>
+						<div className='divide-y divide-gray-100'>
+							<OrderedProduct products={item.products} />
+						</div>
+					</div>
+				))}
+			</div>
+		</div>
 	);
 };
 

@@ -10,23 +10,6 @@ import { updateGlobalSlice } from '../../../store/globalSlice'; // Импорт�
 import OrderedProducts from './orderedProducts'; // Компонент для отображения заказов пользователя
 import { useTranslation } from 'react-i18next'; // Хук для работы с многоязычностью
 
-// Импортируем стилизованные компоненты
-import {
-	Account,
-	AccountContent,
-	ActiveFever,
-	CartProfile,
-	Exit,
-	ExitText,
-	Fever,
-	OrderText,
-	Orders,
-	User,
-	UserInformation,
-	Wrapper,
-} from './styled';
-
-// Основной компонент профиля пользователя
 const UserProfile = () => {
 	const { t } = useTranslation(); // Получаем функцию для перевода текста
 	const email = useSelector((state: any) => state.globalSlice.data.email); // Получаем email из глобального состояния
@@ -41,44 +24,51 @@ const UserProfile = () => {
 	};
 
 	return (
-		<Wrapper>
-			<CartProfile>
-				{' '}
-				{/* Контейнер для информации о пользователе и действий */}
-				<Account>
-					{' '}
-					{/* Контейнер для данных аккаунта */}
-					<AccountContent>
-						{' '}
-						{/* Контейнер для содержимого аккаунта */}
-						<Image src={profile} alt='account' /> {/* Изображение профиля пользователя */}
-						<UserInformation>
-							<User>{t('userProfile.user')}</User> {/* Заголовок с переводом для слова "Пользователь" */}
-							<span>{email}</span> {/* Отображаем email пользователя */}
-						</UserInformation>
-					</AccountContent>
-					<Image src={edit} alt='edit' /> {/* Картинка редактирования аккаунта */}
-				</Account>
-				<Fever>
-					{' '}
-					{/* Контейнер для заказов и выхода */}
-					<ActiveFever></ActiveFever> {/* Стилизация активного состояния */}
-					<Orders>
-						<Image src={cart} alt='cart' width={20} height={20} /> {/* Иконка корзины */}
-						<OrderText>{t('userProfile.orders')}</OrderText> {/* Текст с переводом "Заказы" */}
-					</Orders>
-				</Fever>
-				<Fever>
-					<Exit onClick={handleLogOut}>
-						{' '}
+		<div className='max-w-7xl mx-auto px-4 py-8'>
+			<div className='bg-white rounded-lg shadow-sm p-6 mb-8'>
+				{/* Профиль пользователя */}
+				<div className='space-y-6'>
+					{/* Информация об аккаунте */}
+					<div className='flex items-center justify-between'>
+						<div className='flex items-center gap-4'>
+							<div className='w-16 h-16 relative rounded-full overflow-hidden'>
+								<Image src={profile} alt='account' className='object-cover' fill />
+							</div>
+							<div className='space-y-1'>
+								<div className='text-sm text-gray-500'>{t('userProfile.user')}</div>
+								<div className='font-medium text-gray-900'>{email}</div>
+							</div>
+						</div>
+						<button className='p-2 hover:bg-gray-100 rounded-full transition-colors'>
+							<Image src={edit} alt='edit' width={20} height={20} />
+						</button>
+					</div>
+
+					{/* Навигация */}
+					<div className='space-y-2'>
+						{/* Заказы */}
+						<div className='relative'>
+							<div className='absolute left-0 w-1 h-full bg-primary rounded-r-lg' />
+							<div className='flex items-center gap-3 pl-4 py-2'>
+								<Image src={cart} alt='cart' width={20} height={20} />
+								<span className='text-primary font-medium'>{t('userProfile.orders')}</span>
+							</div>
+						</div>
+
 						{/* Кнопка выхода */}
-						<Image src={exit} alt='exit' width={20} height={20} /> {/* Иконка выхода */}
-						<ExitText>{t('userProfile.exit')}</ExitText> {/* Текст кнопки с переводом "Выйти" */}
-					</Exit>
-				</Fever>
-			</CartProfile>
-			<OrderedProducts /> {/* Компонент для отображения заказов пользователя */}
-		</Wrapper>
+						<button
+							onClick={handleLogOut}
+							className='w-full flex items-center gap-3 pl-4 py-2 text-gray-600 hover:bg-gray-50 transition-colors rounded-lg'>
+							<Image src={exit} alt='exit' width={20} height={20} />
+							<span>{t('userProfile.exit')}</span>
+						</button>
+					</div>
+				</div>
+			</div>
+
+			{/* Список заказов */}
+			<OrderedProducts />
+		</div>
 	);
 };
 

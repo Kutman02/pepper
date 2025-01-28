@@ -5,15 +5,15 @@
 	"errorAddingToCart": "Ошибка в добавлении",
 	"pleaseEnterYourNameAndEmail": "Введите свое имя и адрес электронной почты.",
 	"loginandregister": "Авторизация",
-	"email": " Ваше Имя",
-	"password": " пароль",
+	"email": "Email",
+	"password": "Пароль",
 	"login": "Войти",
 	"category": {
-		"masalas": "Все товары",
-		"chatMasalas": "Смесь специй",
-		"pepperPowder": "Перец",
-		"cookingEssentials": "Кулинарное",
-		"refundOil": "Китайские"
+		"masalas": "Масалы",
+		"chatMasalas": "Чат Масалы",
+		"pepperPowder": "Перечный порошок",
+		"cookingEssentials": "Кухонные принадлежности",
+		"refundOil": "Масло возврата"
 	},
 	"slider": {
 		"alt": "main slider"
@@ -43,13 +43,25 @@
 		}
 	},
 	"FilterProducts": {
-		"Showing": "Показано",
-		"product": "товаров",
-		"of": "из",
 		"filter": "Фильтр",
-		"priceRanget": "Диапазон цен",
-		"searcht": "Искать",
-		"categoryt": "Категории"
+		"sortBy": "Сортировать по",
+		"sortByName": "Названию",
+		"priceLowToHigh": "Цена: по возрастанию",
+		"priceHighToLow": "Цена: по убыванию",
+		"search": "Поиск",
+		"searcht": "Поиск товаров...",
+		"priceRange": "Диапазон цен",
+		"resetFilters": "Сбросить фильтры",
+		"Showing": "Показано",
+		"of": "из",
+		"product": "товаров",
+		"min": "От",
+		"max": "До",
+		"currency": "₽",
+		"noResults": "Товары не найдены",
+		"filterBy": "Фильтровать по",
+		"sortProducts": "Сортировка",
+		"clearAll": "Очистить всё"
 	},
 	"footert": {
 		"aboutUs": "О нас",

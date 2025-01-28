@@ -1,9 +1,9 @@
 import Image, { StaticImageData } from 'next/image'; // Импортируем компонент Image из Next.js для отображения изображений и тип StaticImageData для работы с изображениями
-import { Wrapper, OrderedProductDetails, OrderedProductName, Price, PriceProduct, Total } from './styled'; // Импортируем стилизованные компоненты из файла styled.ts
+import { useTranslation } from 'react-i18next';
 
 // Тип для массива продуктов (в заказе)
 type OrderType = {
-	products: []; // Список продуктов
+	products: OrderedProductType[];
 };
 
 // Тип для каждого продукта в заказе
@@ -21,36 +21,36 @@ type OrderedProductType = {
 
 // Компонент, который отображает заказы с продуктами
 const OrderedProduct = ({ products }: OrderType) => {
+	const { t } = useTranslation();
+
 	return (
 		<>
 			{/* Проходим по всем продуктам в заказе и отображаем их */}
 			{products.map((item: OrderedProductType, index: number) => (
-				<Wrapper key={index}>
-					{/* Отображаем изображение первого изображения продукта (item.images[0]) */}
-					<Image src={item.images[0]} alt='image' width={150} height={150} />
+				<div key={index} className='flex items-center gap-6 p-4 border-b border-gray-200'>
+					{/* Изображение продукта */}
+					<div className='relative w-[150px] h-[150px]'>
+						<Image src={item.images[0]} alt='product' fill className='object-cover rounded-lg' />
+					</div>
 
-					{/* Отображаем детали продукта */}
-					<OrderedProductDetails>
+					{/* Детали продукта */}
+					<div className='flex-1 space-y-4'>
 						{/* Название продукта */}
-						<OrderedProductName>{item.title}</OrderedProductName>
+						<h3 className='text-lg font-medium text-gray-900'>{item.title}</h3>
 
-						{/* Блок с ценой */}
-						<PriceProduct>
-							{/* Текст "Total" */}
-							<Total>Total:</Total>
-							{/* Цена за единицу продукта */}
-							<Price> {item.total}</Price>
-						</PriceProduct>
+						{/* Количество */}
+						<div className='space-y-1'>
+							<span className='text-sm text-gray-500'>{t('Total')}:</span>
+							<div className='text-base font-medium text-gray-900'>{item.total}</div>
+						</div>
 
-						{/* Блок с общей ценой (цена за единицу умноженная на количество) */}
-						<PriceProduct>
-							{/* Текст "TotalPrice" */}
-							<Total>TotalPrice:</Total>
-							{/* Общая стоимость этого продукта в заказе */}
-							<Price> {`${item.price * item.total}`}</Price>
-						</PriceProduct>
-					</OrderedProductDetails>
-				</Wrapper>
+						{/* Общая цена */}
+						<div className='space-y-1'>
+							<span className='text-sm text-gray-500'>{t('TotalPrice')}:</span>
+							<div className='text-lg font-bold text-primary'>{`${item.price * item.total} сом`}</div>
+						</div>
+					</div>
+				</div>
 			))}
 		</>
 	);

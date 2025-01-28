@@ -8,7 +8,6 @@ import { routes } from '@src/constants/routes'; // Импорт маршруто
 import Button from '../button'; // Импорт компонента кнопки
 import { postCartChange } from '@src/api/cart'; // API запрос для изменения корзины
 import { updateGlobalSlice } from '@src/store/globalSlice'; // Диспатч для обновления глобального состояния
-import { Products, Product, Title, Content, ProductPrice, ProductTitle } from './styled'; // Стили
 import { useTranslation } from 'react-i18next'; // Библиотека для перевода
 
 // Определяем типы пропсов для компонента ProductSlide
@@ -59,34 +58,30 @@ const ProductSlide = ({ title, list }: ProductSlideProps) => {
 	};
 
 	return (
-		<Content>
-			{/* Заголовок слайдера */}
-			<Title>
-				<span>{title ? title : <Image src={loading} alt='loading' />}</span>
-			</Title>
+		<div className='my-16 mb-20'>
+			{/* Заголовок */}
+			<div className='flex justify-center mb-[75px]'>
+				<h2 className='text-blue-500 text-lg font-bold'>{title || <Image src={loading} alt='loading' />}</h2>
+			</div>
 
 			{/* Список продуктов */}
-			<Products>
-				{list ? (
-					// Если есть продукты, отображаем их
-					list.map((item: ListType, index: number) => (
-						<Product key={index}>
-							<Link href={routes.product(item.id)}>
-								{/* Ссылка на страницу продукта */}
-								<Image src={item.images[0]} alt='image' width={225} height={225} />
-
-								{/* Название и цена продукта */}
-								<ProductTitle>{item.title}</ProductTitle>
-								<ProductPrice>{`${item.price} сом`}</ProductPrice>
-							</Link>
-							<Button onClick={() => handleBuy(item.id)}>{t('addToCart')}</Button> {/* Кнопка добавления в корзину */}
-						</Product>
-					))
-				) : (
-					<></> // Если продуктов нет, ничего не отображаем
-				)}
-			</Products>
-		</Content>
+			<div className='flex flex-nowrap overflow-x-auto md:flex-wrap md:overflow-visible justify-center gap-6'>
+				{list?.map((item: ListType, index: number) => (
+					<div key={index} className='flex flex-col items-center min-w-[250px] p-4'>
+						<Link href={routes.product(item.id)} className='flex flex-col items-center no-underline w-full'>
+							<div className='w-[225px] h-[225px] relative mb-4'>
+								<Image src={item.images[0]} alt='product' fill className='object-cover rounded-md' />
+							</div>
+							<h3 className='text-gray-900 text-lg mb-2'>{item.title}</h3>
+							<span className='text-red-400 text-lg mb-4'>{`${item.price} сом`}</span>
+						</Link>
+						<Button onClick={() => handleBuy(item.id)} className='w-full'>
+							{t('addToCart')}
+						</Button>
+					</div>
+				))}
+			</div>
+		</div>
 	);
 };
 

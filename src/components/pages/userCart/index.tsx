@@ -9,18 +9,6 @@ import { postNewOrder } from '@src/api/order'; // API-запрос для соз
 import { routes } from '@src/constants/routes'; // Список маршрутов в приложении
 import { useTranslation } from 'react-i18next'; // Хук для работы с многоязычностью
 
-// Импортируем стилизованные компоненты
-import {
-	BuyButton,
-	CartTitle,
-	DescriptionForm,
-	Form,
-	FormInput,
-	FormInputTitle,
-	ProductsShoppingCart,
-	Wrapper,
-} from './styled';
-
 // Определяем типы пропсов для компонента
 type UserCartType = {
 	cartList?: any; // Список товаров в корзине
@@ -46,12 +34,10 @@ const UserCart = ({ cartList, setCartList }: UserCartType) => {
 		const { name, value } = e.target; // Получаем имя и значение поля
 
 		// Обновляем состояние с новыми значениями
-		setInputValues((prev) => {
-			return {
-				...prev, // Сохраняем старые значения
-				[name]: value, // Обновляем только измененное поле
-			};
-		});
+		setInputValues((prev) => ({
+			...prev,
+			[name]: value,
+		}));
 	};
 
 	// Обработчик отправки формы
@@ -70,63 +56,58 @@ const UserCart = ({ cartList, setCartList }: UserCartType) => {
 		<>
 			{/* Если в корзине есть товары */}
 			{cartList.length ? (
-				<Wrapper>
-					{' '}
-					{/* Стилизованный контейнер */}
-					<ProductsShoppingCart>
-						{' '}
-						{/* Секция для отображения товаров в корзине */}
-						<CartTitle>{t('userCart.Products')}</CartTitle> {/* Заголовок секции с переводом */}
-						<CartProducts cartList={cartList} setCartList={setCartList} />{' '}
-						{/* Компонент для отображения списка товаров */}
-					</ProductsShoppingCart>
-					{/* Секция для ввода данных для оформления заказа */}
-					<div>
-						<CartTitle>{t('userCart.orderSummary')}</CartTitle> {/* Заголовок секции с переводом */}
-						<Form>
-							{' '}
-							{/* Форма для ввода данных */}
-							<DescriptionForm>{t('userCart.orderSummarytitle')}</DescriptionForm> {/* Описание формы с переводом */}
-							{/* Поле для ввода страны */}
-							<FormInput>
-								<FormInputTitle>{t('userCart.country')}</FormInputTitle> {/* Заголовок поля с переводом */}
-								<Input
-									width='100%'
-									height={50}
-									name='country'
-									value={inputValues.country}
-									onChange={handleChange}
-								/>{' '}
-								{/* Поле ввода */}
-							</FormInput>
-							{/* Поле для ввода штата */}
-							<FormInput>
-								<FormInputTitle>{t('userCart.state')}</FormInputTitle> {/* Заголовок поля с переводом */}
-								<Input width='100%' height={50} name='state' value={inputValues.state} onChange={handleChange} />{' '}
-								{/* Поле ввода */}
-							</FormInput>
-							{/* Поле для ввода почтового кода */}
-							<FormInput>
-								<FormInputTitle>{t('userCart.postalCode')}</FormInputTitle> {/* Заголовок поля с переводом */}
-								<Input
-									width='100%'
-									height={50}
-									name='postalCode'
-									value={inputValues.postalCode}
-									onChange={handleChange} // Обработчик изменения
-								/>
-							</FormInput>
-							{/* Кнопка для продолжения покупок или оформления заказа */}
-							<BuyButton>
-								<Button width={145} onClick={handleSubmitForm}>
+				<div className='max-w-7xl mx-auto px-4 py-8 flex flex-col lg:flex-row gap-8'>
+					{/* Секция товаров */}
+					<div className='flex-1'>
+						<h2 className='text-2xl font-medium text-gray-900 mb-6'>{t('userCart.Products')}</h2>
+						<CartProducts cartList={cartList} setCartList={setCartList} />
+					</div>
+
+					{/* Форма оформления заказа */}
+					<div className='w-full lg:w-[400px]'>
+						<h2 className='text-2xl font-medium text-gray-900 mb-6'>{t('userCart.orderSummary')}</h2>
+						<div className='bg-white p-6 rounded-lg shadow-sm space-y-6'>
+							<p className='text-gray-600'>{t('userCart.orderSummarytitle')}</p>
+
+							{/* Поля формы */}
+							<div className='space-y-4'>
+								<div>
+									<label className='block text-sm font-medium text-gray-700 mb-1'>{t('userCart.country')}</label>
+									<Input
+										className='w-full h-[50px]'
+										name='country'
+										value={inputValues.country}
+										onChange={handleChange}
+									/>
+								</div>
+
+								<div>
+									<label className='block text-sm font-medium text-gray-700 mb-1'>{t('userCart.state')}</label>
+									<Input className='w-full h-[50px]' name='state' value={inputValues.state} onChange={handleChange} />
+								</div>
+
+								<div>
+									<label className='block text-sm font-medium text-gray-700 mb-1'>{t('userCart.postalCode')}</label>
+									<Input
+										className='w-full h-[50px]'
+										name='postalCode'
+										value={inputValues.postalCode}
+										onChange={handleChange}
+									/>
+								</div>
+							</div>
+
+							{/* Кнопка оформления заказа */}
+							<div className='pt-4'>
+								<Button onClick={handleSubmitForm} className='w-full h-[50px]'>
 									{t('userCart.continueShopping')}
 								</Button>
-							</BuyButton>
-						</Form>
+							</div>
+						</div>
 					</div>
-				</Wrapper>
+				</div>
 			) : (
-				<span>{t('userCart.shoppingBasketIsEmpty')}</span> // Если корзина пуста, отображаем сообщение
+				<div className='text-center py-8 text-gray-600'>{t('userCart.shoppingBasketIsEmpty')}</div>
 			)}
 		</>
 	);

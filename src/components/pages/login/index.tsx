@@ -1,115 +1,76 @@
-import { useEffect, useState, ChangeEvent, FormEvent } from 'react'; // Импортируем хуки для работы с состоянием и событиями
-//import Image from 'next/image'; // Импорт изображения (закомментировано)
-import { useRouter } from 'next/router'; // Импортируем хук для работы с роутингом
-import { useDispatch } from 'react-redux'; // Импортируем хук для работы с Redux
-//import logo from 'public/images/logo.png'; // Логотип (закомментирован)
-import Button from '@src/components/base/button'; // Импорт кнопки
-import Input from '@src/components/base/input'; // Импорт компонента ввода
-import { postAuth } from '@src/api/auth'; // Импорт функции для аутентификации
-import { routes } from '@src/constants/routes'; // Импорт маршрутов
-import { updateGlobalSlice } from '../../../store/globalSlice'; // Импорт функции для обновления состояния в Redux
-import { useTranslation } from 'react-i18next'; // Импорт хука для работы с переводами
-import { Form, FormButton, LoginDescription, LoginWrapper, Password, Register } from './style'; // Импорт стилей
+import { useState, ChangeEvent, FormEvent } from 'react';
+import { useRouter } from 'next/router';
+import { useDispatch } from 'react-redux';
+import Button from '@src/components/base/button';
+import Input from '@src/components/base/input';
+import { postAuth } from '@src/api/auth';
+import { updateGlobalSlice } from '@src/store/globalSlice';
+import { useTranslation } from 'react-i18next';
 
 const LoginPage = () => {
-	const dispatch = useDispatch(); // Получаем функцию dispatch для отправки действий в Redux
+	const dispatch = useDispatch();
+	const router = useRouter();
+	const { t } = useTranslation();
 	const [inputValues, setInputValues] = useState({
-		email: '', // Состояние для хранения значения email
-		password: '', // Состояние для хранения значения пароля
+		email: '',
+		password: '',
 	});
-	const router = useRouter(); // Получаем объект router для навигации по страницам
 
-	// Обработчик изменения значений в инпутах
 	const handleChange = (e: ChangeEvent<HTMLInputElement>) => {
-		const { name, value } = e.target; // Получаем имя и значение из поля ввода
-
-		setInputValues((prev) => {
-			return {
-				...prev, // Сохраняем старые значения
-				[name]: value, // Обновляем значение для текущего поля (email или password)
-			};
-		});
+		const { name, value } = e.target;
+		setInputValues((prev) => ({
+			...prev,
+			[name]: value,
+		}));
 	};
 
-	const { t } = useTranslation(); // Получаем функцию перевода для интернационализации
+	const handleSubmitForm = async (e: FormEvent) => {
+		e.preventDefault();
+		try {
+			const response = await postAuth(inputValues.email, inputValues.password);
 
-	// Функция для отправки формы (аутентификация)
-	const handleSubmitForm = async () => {
-		const response = await postAuth(inputValues.email, inputValues.password); // Отправляем запрос на аутентификацию
-
-		if (response.status === 201) {
-			// Если аутентификация успешна
-			dispatch(updateGlobalSlice(inputValues)); // Обновляем состояние в Redux с данными пользователя
-			router.push(routes.home); // Переходим на главную страницу
+			if (response.status === 201) {
+				dispatch(
+					updateGlobalSlice({
+						email: inputValues.email,
+						password: inputValues.password,
+					}),
+				);
+				router.push('/');
+			}
+		} catch (error) {
+			console.error('Login error:', error);
 		}
 	};
-
-	// Функция для предотвращения стандартного поведения формы (перезагрузки страницы)
-	const handleSubmit = (event: FormEvent<HTMLFormElement>) => {
-		event.preventDefault(); // Останавливаем перезагрузку при сабмите
-	};
-
-	// Проверяем, есть ли данные в localStorage (если пользователь уже вошел)
-	useEffect(() => {
-		const email = localStorage.getItem('email');
-		const password = localStorage.getItem('password');
-
-		if (email && password) {
-			// Если email и пароль есть в localStorage
-			router.push(routes.home); // Переходим на главную страницу
-		}
-	}, []); // useEffect с пустым массивом зависимостей, чтобы запустился один раз при монтировании компонента
 
 	return (
-		<LoginWrapper>
-			{' '}
-			{/* Обертка для всего контента страницы */}
-			<Register>
-				{' '}
-				{/* Контейнер для формы регистрации */}
-				{/* <Logo> */}
-				{/* <Image src={logo} alt='logo' /> */}
-				{/* </Logo> */} {/* Логотип (закомментирован) */}
-				<LoginDescription>
-					{' '}
-					{/* Описание для пользователя */}
-					{/* <p>Hello !</p> */}
-					<p>{t('pleaseEnterYourNameAndEmail')}</p> {/* Текст, который переводится с помощью i18n */}
-				</LoginDescription>
-				<Form onSubmit={handleSubmit}>
-					{' '}
-					{/* Форма для ввода email и пароля */}
+		<div className='min-h-screen flex items-center justify-center bg-white'>
+			<div className='w-full max-w-md p-6 bg-white rounded-lg shadow-sm'>
+				<h1 className='text-2xl font-bold text-gray-900 mb-6'>{t('login')}</h1>
+				<form onSubmit={handleSubmitForm} className='space-y-4'>
 					<Input
-						width={'335px'}
-						height={'50px'}
-						placeholder={t('email')} // Placeholder с переводом
+						className='w-full'
+						placeholder={t('email')}
 						name='email'
-						value={inputValues.email} // Значение из состояния
-						onChange={handleChange} // Обработчик изменения
+						value={inputValues.email}
+						onChange={handleChange}
+						required
 					/>
-					<Password>
-						{' '}
-						{/* Контейнер для поля пароля */}
-						<Input
-							width={'335px'}
-							height={'50px'}
-							name='password'
-							placeholder={t('password')} // Placeholder с переводом
-							type={'password'} // Скрытый текст в поле ввода
-							value={inputValues.password} // Значение из состояния
-							onChange={handleChange} // Обработчик изменения
-						/>
-					</Password>
-					<FormButton>
-						{' '}
-						{/* Контейнер для кнопки */}
-						<Button width={'335px'} height={'50px'} onClick={handleSubmitForm}>
-							{t('login')}
-						</Button>
-					</FormButton>
-				</Form>
-			</Register>
-		</LoginWrapper>
+					<Input
+						className='w-full'
+						name='password'
+						type='password'
+						placeholder={t('password')}
+						value={inputValues.password}
+						onChange={handleChange}
+						required
+					/>
+					<Button type='submit' className='w-full'>
+						{t('login')}
+					</Button>
+				</form>
+			</div>
+		</div>
 	);
 };
 

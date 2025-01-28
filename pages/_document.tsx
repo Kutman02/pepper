@@ -4,7 +4,7 @@ import { Html, Head, Main, NextScript } from 'next/document';
 const Document = () => {
 	return (
 		// Компонент <Html> задает язык страницы
-		<Html lang='en'>
+		<Html lang='en' className='h-full'>
 			<Head>
 				{/* Мета-тег для описания страницы (можно изменять по необходимости) */}
 				<meta name='description' content='Перец' />
@@ -13,7 +13,7 @@ const Document = () => {
 			</Head>
 
 			{/* Тело страницы */}
-			<body>
+			<body className='h-full antialiased bg-gray-50'>
 				{/* Основной контент страницы */}
 				<Main />
 				{/* Скрипты для работы Next.js */}

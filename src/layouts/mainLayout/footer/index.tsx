@@ -4,52 +4,45 @@ import Image from 'next/image';
 import mail from 'public/icons/mail.png';
 import phone from 'public/icons/phone.png';
 import { useTranslation } from 'react-i18next';
-import {
-	DivContent,
-	DivContentUs,
-	//DivLogo,
-	FooterContent,
-	FooterTitle,
-	FooterWrapper,
-	PContent,
-	SpanContentUs,
-	DivContentWrapper,
-} from './styled';
 
 const Footer = () => {
 	const { t } = useTranslation();
 
 	return (
-		<FooterContent>
-			<FooterWrapper>
-				{/*<DivLogo>
-					<Link href='/'>
-						<Image src={logo} alt='logo' />
-					</Link>
-				</DivLogo>*/}
+		<footer className='bg-white border-t border-gray-200'>
+			<div className='max-w-7xl mx-auto px-4 py-12'>
+				{/* Основной контент футера */}
+				<div className='flex flex-col md:flex-row gap-8'>
+					{/* О нас */}
+					<div className='flex-1 space-y-4'>
+						<h3 className='text-lg font-medium text-gray-900'>{t('footert.aboutUs')}</h3>
+						<p className='text-gray-600 leading-relaxed'>{t('footert.aboutUsTitle')}</p>
+					</div>
 
-				<DivContent>
-					<DivContentWrapper>
-						<FooterTitle>{t('footert.aboutUs')}</FooterTitle>
-						<PContent>{t('footert.aboutUsTitle')}</PContent>
-					</DivContentWrapper>
+					{/* Контакты */}
+					<div className='flex-1 space-y-4'>
+						<h3 className='text-lg font-medium text-gray-900'>{t('footert.contactUs')}</h3>
 
-					<DivContentWrapper>
-						<FooterTitle>{t('footert.contactUs')}</FooterTitle>
+						{/* Email */}
+						<div className='flex items-center gap-3'>
+							<div className='w-5 h-5 relative'>
+								<Image src={mail} alt='mail' className='object-contain' fill />
+							</div>
+							<span className='text-gray-600'>Kutmank9@gmail.com</span>
+						</div>
 
-						<DivContentUs>
-							<Image src={mail} alt='mail' />
-							<SpanContentUs>Kutmank9@gmail.com</SpanContentUs>
-						</DivContentUs>
-
-						<DivContentUs>
-							<Image src={phone} alt='phone' />
-							<SpanContentUs>0703601025</SpanContentUs>
-						</DivContentUs>
-					</DivContentWrapper>
-				</DivContent>
-			</FooterWrapper>
-		</FooterContent>
+						{/* Телефон */}
+						<div className='flex items-center gap-3'>
+							<div className='w-5 h-5 relative'>
+								<Image src={phone} alt='phone' className='object-contain' fill />
+							</div>
+							<span className='text-gray-600'>0703601025</span>
+						</div>
+					</div>
+				</div>
+			</div>
+		</footer>
 	);
 };
+
 export default Footer;

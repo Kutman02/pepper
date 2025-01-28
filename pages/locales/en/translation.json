@@ -1,13 +1,13 @@
 {
 	"404page": "Not Page",
 	"addToCart": "Add to Cart",
-	"itemAddedToCart": "Added to cart",
+	"itemAddedToCart": "Item added to cart",
 	"errorAddingToCart": "Error adding to cart",
-	"pleaseEnterYourNameAndEmail": "Please enter your name and email. ",
-	"loginandregister":"Login | Register ",
-	"email": "name",
-	"password": "password",
-	"login": "login",
+	"pleaseEnterYourNameAndEmail": "Please enter your email and password",
+	"loginandregister": "Login | Register ",
+	"email": "Email",
+	"password": "Password",
+	"login": "Login",
 	"category": {
 		"masalas": "Masalas",
 		"chatMasalas": "Chat Masalas",
@@ -43,13 +43,25 @@
 		}
 	},
 	"FilterProducts": {
-		"Showing": "Showing",
-		"product": "product",
-		"of": "Of",
 		"filter": "Filter",
-		"priceRanget": "Price Range",
-		"searcht": "Search",
-		"categoryt": "Category"
+		"sortBy": "Sort by",
+		"sortByName": "Name",
+		"priceLowToHigh": "Price: Low to High",
+		"priceHighToLow": "Price: High to Low",
+		"search": "Search",
+		"searcht": "Search products...",
+		"priceRange": "Price Range",
+		"resetFilters": "Reset Filters",
+		"Showing": "Showing",
+		"of": "of",
+		"product": "products",
+		"min": "From",
+		"max": "To",
+		"currency": "$",
+		"noResults": "No products found",
+		"filterBy": "Filter by",
+		"sortProducts": "Sort",
+		"clearAll": "Clear All"
 	},
 	"footert": {
 		"aboutUs": "About us",
@@ -84,5 +96,6 @@
 	},
 	"allProducts": {
 		"description": "Description"
-	}
+	},
+	"menu": "Menu"
 }

@@ -4,7 +4,7 @@ import { Varela_Round } from '@next/font/google'; // Для подключени
 import { store } from '@src/store'; // Импортируем Redux store
 import Footer from './footer'; // Компонент футера
 import Header from './header'; // Компонент хедера
-import { Main } from './styled'; // Стилизованный компонент для основного контента
+
 import '../../i18n'; // Инициализация локализации
 
 // Подключаем шрифт Varela Round с определёнными настройками
@@ -28,7 +28,7 @@ const MainLayout = ({ children }: MainLayoutProps) => {
 				{' '}
 				{/* Оборачиваем приложение в провайдер Redux */}
 				<Header /> {/* Компонент шапки страницы */}
-				<Main>{children}</Main> {/* Основной контент страницы */}
+				<main className='container mx-auto px-4 py-8 min-h-screen'>{children}</main>
 				<Footer /> {/* Компонент футера */}
 			</Provider>
 		</div>

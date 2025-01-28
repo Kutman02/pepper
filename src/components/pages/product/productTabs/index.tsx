@@ -1,5 +1,4 @@
 import React from 'react'; // Импортируем React для работы с компонентами
-import { DescriptionTabs, Tab, Tabs, Wrapper } from './styled'; // Импортируем стилизованные компоненты
 import { useTranslation } from 'react-i18next'; // Импортируем хук для работы с переводами
 
 // Определяем тип данных для вкладок
@@ -8,37 +7,41 @@ type ProductTabsType = {
 	title: string; // Заголовок вкладки
 };
 
-const ProductTabs = ({ data }: any) => {
+const ProductTabs = ({ data }: { data: ProductTabsType[] }) => {
 	// Принимаем данные как пропс
 	const { t } = useTranslation(); // Инициализируем хук для переводов
 
 	return (
-		<Wrapper>
-			{' '}
-			{/* Окружает все в стилизованный контейнер */}
-			<Tabs>
-				{' '}
-				{/* Стилизованная обертка для вкладок */}
-				<Tab>{t('productContent.productDescription')}</Tab> {/* Текст для вкладки, переведенный на нужный язык */}
-			</Tabs>
-			<DescriptionTabs>
-				{' '}
-				{/* Стилизованная обертка для контента вкладки */}
-				{data.map(
-					(
-						item: ProductTabsType,
-						index: number, // Перебираем данные и отображаем каждую вкладку
-					) => (
-						<React.Fragment key={index}>
-							{' '}
-							{/* Оборачиваем контент вкладки в React.Fragment, чтобы избежать лишних DOM-узлов */}
-							<h3>{item.title}</h3> {/* Заголовок вкладки */}
-							<p>{item.content}</p> {/* Содержимое вкладки */}
-						</React.Fragment>
-					),
-				)}
-			</DescriptionTabs>
-		</Wrapper>
+		<div className='max-w-7xl mx-auto px-4 py-8'>
+			{/* Вкладки */}
+			<div className='border-b border-gray-200'>
+				<div className='flex space-x-8'>
+					<button
+						className='
+							border-b-2 
+							border-primary 
+							py-4 
+							px-1 
+							text-base 
+							font-medium 
+							text-primary 
+							focus:outline-none
+						'>
+						{t('productContent.productDescription')}
+					</button>
+				</div>
+			</div>
+
+			{/* Контент вкладок */}
+			<div className='mt-8 space-y-6'>
+				{data.map((item: ProductTabsType, index: number) => (
+					<div key={index} className='space-y-4'>
+						<h3 className='text-lg font-medium text-gray-900'>{item.title}</h3>
+						<p className='text-base text-gray-600'>{item.content}</p>
+					</div>
+				))}
+			</div>
+		</div>
 	);
 };
 

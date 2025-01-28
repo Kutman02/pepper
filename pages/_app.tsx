@@ -1,38 +1,37 @@
 // Импортируем типы и компоненты для настройки приложения Next.js
 import type { AppProps } from 'next/app'; // Типизация для пропсов приложения
-import MainLayout from '@src/layouts/mainLayout'; // Главный макет (layout) для всех страниц
+import { Provider } from 'react-redux';
+import { store } from '@src/store';
+import MainLayout from '@src/layouts/mainLayout';
 import '@src/styles/globals.css'; // Импортируем глобальные стили
-import { Suspense } from 'react'; // Компонент Suspense для асинхронных операций, например, загрузки данных
+import { useEffect, useState } from 'react';
 
-// Основной компонент приложения
-const App = ({ Component, pageProps, router }: AppProps) => {
-	// Хук для изменения языка (временно закомментирован)
-	// const { i18n } = useTranslation();
+function MyApp({ Component, pageProps }: AppProps) {
+	const [mounted, setMounted] = useState(false);
 
-	// Функция для изменения языка (временно закомментирована)
-	// const changeLanguage = (language: string) => {
-	// 	i18n.changeLanguage(language);
-	// };
+	useEffect(() => {
+		setMounted(true);
+	}, []);
 
-	// Возвращаем главный макет и передаем компонент страницы с пропсами
+	if (!mounted) {
+		return null;
+	}
+
+	if (Component.displayName === 'LoginPage') {
+		return (
+			<Provider store={store}>
+				<Component {...pageProps} />
+			</Provider>
+		);
+	}
+
 	return (
-		<MainLayout>
-			{/* Компонент текущей страницы */}
-			<Component {...pageProps} router={router} />
-		</MainLayout>
-	);
-};
-
-// Обертка для компонента приложения с использованием Suspense
-// Suspense нужен для отображения запасного контента, пока основной контент не загрузится
-export function WrappedApp(appProps: AppProps) {
-	return (
-		<Suspense fallback='...Load'>
-			{/* Отображаем приложение внутри Suspense */}
-			<App {...appProps} />
-		</Suspense>
+		<Provider store={store}>
+			<MainLayout>
+				<Component {...pageProps} />
+			</MainLayout>
+		</Provider>
 	);
 }
 
-// Экспортируем WrappedApp как основной компонент для Next.js
-export default WrappedApp;
+export default MyApp;

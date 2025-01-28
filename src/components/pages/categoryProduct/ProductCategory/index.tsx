@@ -10,16 +10,14 @@ import Button from '@src/components/base/button'; // Импортируем ко
 import { updateGlobalSlice } from '@src/store/globalSlice'; // Импортируем экшен для обновления состояния Redux
 import { postCartChange } from '@src/api/cart'; // Импортируем API-запрос для изменения корзины
 import { ListProducts } from '@src/interfaces/listProducts'; // Импортируем тип для списка продуктов
-import { Product, ProductFavorites, ProductName, ProductPrice, Score } from './styled'; // Импортируем стилизованные компоненты
 import { useTranslation } from 'react-i18next'; // Хук для работы с переводами
 
-type ProductSlideProps = {
-	title?: string; // Опциональный пропс для заголовка
-	list?: []; // Опциональный пропс для списка товаров
+type ProductCategoryType = {
+	list: { id: string; title: string; images: string[]; price: number }[];
 };
 
 // Компонент для отображения категории товаров
-const ProductCategory = ({ list }: ProductSlideProps) => {
+const ProductCategory = ({ list }: ProductCategoryType) => {
 	const { t } = useTranslation(); // Инициализация хука для перевода
 	const router = useRouter(); // Инициализация хука маршрутизации
 	const dispatch = useDispatch(); // Хук для работы с dispatch в Redux
@@ -30,48 +28,74 @@ const ProductCategory = ({ list }: ProductSlideProps) => {
 	const handleBuy = async (id: string) => {
 		// Проверяем, авторизован ли пользователь
 		if (!email && !password) {
-			router.push(routes.login); // Если нет, перенаправляем на страницу логина
+			router.push('/login');
 			return;
 		}
 
-		// Отправляем запрос на добавление товара в корзину
-		const response = await postCartChange(id, 1);
+		try {
+			// Отправляем запрос на добавление товара в корзину
+			const response = await postCartChange(id, 1);
 
-		// Проверяем успешность запроса
-		if (response.status === 200) {
-			// Обновляем состояние корзины в Redux
-			dispatch(updateGlobalSlice({ cartTotal: response.cartTotal }));
-			alert(t('itemAddedToCart')); // Показываем сообщение о добавлении товара в корзину
-		} else {
-			alert(t('errorAddingToCart')); // Показываем сообщение об ошибке
-			// router.push(routes.cart); // Можно раскомментировать, если хотите перенаправить на корзину
+			// Проверяем успешность запроса
+			if (response.status === 200) {
+				dispatch(updateGlobalSlice({ cartTotal: 1 }));
+			}
+		} catch (error) {
+			console.error('Error adding to cart:', error);
 		}
 	};
 
 	return (
 		<>
-			{list ? (
-				// Если список товаров существует, отображаем каждый товар
-				list.map((item: ListProducts, index: number) => (
-					<Product key={index}>
-						<Link href={routes.product(item.id)}>
-							<Image src={item.images[0]} alt='image' width={225} height={225} /> {/* Изображение товара */}
-							<ProductName>{item.title}</ProductName> {/* Название товара */}
-							<ProductFavorites>
-								<Score>
-									<Image src={score} alt='score' width={70} height={17} /> {/* Оценка товара */}
-								</Score>
-								<Image src={interest} alt='interest' width={18} height={18} /> {/* Иконка интереса товара */}
-							</ProductFavorites>
-							<ProductPrice>{`${item.price} сом`}</ProductPrice> {/* Цена товара */}
-						</Link>
-						<Button onClick={() => handleBuy(item.id)}>{t('addToCart')}</Button> {/* Кнопка добавления в корзину */}
-					</Product>
-				))
-			) : (
-				// Если список товаров не загружен, отображаем индикатор загрузки
-				<Image src={loading} alt='loading' />
-			)}
+			{list.map((item) => (
+				<div
+					key={item.id}
+					className='group bg-white rounded-2xl shadow-sm overflow-hidden hover:shadow-lg transition-all duration-300'>
+					<Link href={`/product/${item.id}`} className='block relative'>
+						<div className='aspect-square relative overflow-hidden bg-orange-50'>
+							<Image
+								src={item.images[0]}
+								alt={item.title}
+								fill
+								className='object-cover group-hover:scale-105 transition-transform duration-500'
+							/>
+							<div className='absolute inset-0 bg-gradient-to-t from-black/10 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-300' />
+						</div>
+						<div className='p-4'>
+							<h3 className='text-gray-800 font-medium line-clamp-2 min-h-[2.5rem] group-hover:text-primary transition-colors duration-200'>
+								{item.title}
+							</h3>
+							<div className='mt-3 flex items-center justify-between'>
+								<span className='text-primary font-semibold text-lg'>${item.price}</span>
+								<button
+									onClick={(e) => {
+										e.preventDefault();
+										handleBuy(item.id);
+									}}
+									className='px-4 py-2 text-sm bg-gradient-to-r from-orange-500 to-red-500 text-white rounded-full 
+                                    hover:from-orange-600 hover:to-red-600 transform hover:-translate-y-0.5 
+                                    active:translate-y-0 transition-all duration-200 shadow-sm 
+                                    hover:shadow-md flex items-center gap-2'>
+									<svg
+										className='w-4 h-4'
+										fill='none'
+										stroke='currentColor'
+										viewBox='0 0 24 24'
+										xmlns='http://www.w3.org/2000/svg'>
+										<path
+											strokeLinecap='round'
+											strokeLinejoin='round'
+											strokeWidth={2}
+											d='M3 3h2l.4 2M7 13h10l4-8H5.4M7 13L5.4 5M7 13l-2.293 2.293c-.63.63-.184 1.707.707 1.707H17m0 0a2 2 0 100 4 2 2 0 000-4zm-8 2a2 2 0 11-4 0 2 2 0 014 0z'
+										/>
+									</svg>
+									{t('addToCart')}
+								</button>
+							</div>
+						</div>
+					</Link>
+				</div>
+			))}
 		</>
 	);
 };

@@ -3,9 +3,7 @@ import Link from 'next/link';
 import { useSelector } from 'react-redux';
 import account from 'public/icons/account.png';
 import cart from 'public/icons/cart.png';
-import { Counter, DivIcon, DivIconCart } from './styled';
 import Button from '@src/components/base/button';
-import { routes } from '@src/constants/routes';
 import { useTranslation } from 'react-i18next';
 
 const BoxLogin = () => {
@@ -14,29 +12,34 @@ const BoxLogin = () => {
 	const counter = useSelector((state: any) => state.globalSlice.data.cartTotal);
 	const isLogin = email && password;
 	const { t } = useTranslation();
-	if (!isLogin)
+
+	if (!isLogin) {
 		return (
-			<Link href={routes.login}>
-				<Button width={165} fontSize={15}>
-				{t('loginandregister')}
-				</Button>
+			<Link href='/login'>
+				<span className='inline-block'>
+					<Button className='px-4 py-2 hover:bg-primary/90 text-sm'>{t('login')}</Button>
+				</span>
 			</Link>
 		);
+	}
 
 	return (
-		<DivIcon>
-			<Link href={routes.profile}>
-				<Image src={account} alt='account' />
+		<div className='flex items-center gap-4'>
+			<Link href='/profile' className='p-2 hover:bg-gray-100 rounded-full transition-colors'>
+				<Image src={account} alt='account' width={20} height={20} />
 			</Link>
 
-			<DivIconCart>
-				<Link href={routes.cart}>
-					<Image src={cart} alt='cart' />
-
-					{counter ? <Counter>{counter}</Counter> : <></>}
+			<div className='relative'>
+				<Link href='/cart' className='p-2 hover:bg-gray-100 rounded-full transition-colors'>
+					<Image src={cart} alt='cart' width={20} height={20} />
+					{counter ? (
+						<span className='absolute -top-1 -right-1 bg-primary text-white text-xs w-5 h-5 flex items-center justify-center rounded-full'>
+							{counter}
+						</span>
+					) : null}
 				</Link>
-			</DivIconCart>
-		</DivIcon>
+			</div>
+		</div>
 	);
 };
 

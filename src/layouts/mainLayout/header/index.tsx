@@ -1,26 +1,18 @@
 // Импортируем необходимые библиотеки и компоненты
-import React, { useState, useEffect } from 'react'; // Для работы с состоянием и эффектами
-import Link from 'next/link'; // Для создания ссылок с возможностью навигации
-import { useDispatch } from 'react-redux'; // Для работы с Redux и отправки действий
-import dynamic from 'next/dynamic'; // Для динамической загрузки компонентов
-import {
-	HeaderContent,
-	HeaderWrapper,
-	Category,
-	ListCategories,
-	MenuButton,
-	MobileMenu,
-	LanguageSwitcher,
-} from './styled'; // Стилизованные компоненты для оформления
-import { routes } from '@src/constants/routes'; // Константы маршрутов для навигации
-import { updateGlobalSlice } from '@src/store/globalSlice'; // Действие для обновления состояния в Redux
-import { useTranslation } from 'react-i18next'; // Для локализации (переводов)
+import React, { useState, useEffect } from 'react';
+import Link from 'next/link';
+import dynamic from 'next/dynamic';
+import { useTranslation } from 'react-i18next';
 
 // Динамически загружаем компонент BoxLogin, чтобы он не загружался на сервере
 const BoxLogin = dynamic(() => import('./boxLogin'), { ssr: false });
 
-// Список категорий товаров
-const listCategory = [
+const LanguageSelect = dynamic(() => import('@src/components/base/languageSelect'), {
+	ssr: false,
+});
+
+// Список категорий
+const categories = [
 	{ title: 'category.masalas', link: 'masalas' },
 	{ title: 'category.chatMasalas', link: 'chat-masalas' },
 	{ title: 'category.pepperPowder', link: 'pepper-Powder' },
@@ -29,78 +21,101 @@ const listCategory = [
 ];
 
 const Header = () => {
-	// Состояние для управления открытием/закрытием мобильного меню
-	const [isMenuOpen, setIsMenuOpen] = useState(false);
-	// Состояние для строки поиска (пока не используется, но можно добавить функциональность)
-	const [searchTerm] = useState('');
-	// Локализация
-	const { t, i18n } = useTranslation();
-	// Для отправки действий в Redux
-	const dispatch = useDispatch();
+	const { t } = useTranslation();
+	const [mounted, setMounted] = useState(false);
+	const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
 
-	// Используем useEffect, чтобы при первом рендере загрузить данные из localStorage
 	useEffect(() => {
-		const email = localStorage.getItem('email');
-		const password = localStorage.getItem('password');
+		setMounted(true);
+	}, []);
 
-		if (email && password) {
-			// Загружаем cartList из localStorage, если оно есть, и обновляем состояние в Redux
-			const cartList = localStorage.getItem('cartList') ? JSON.parse(localStorage.getItem('cartList') || '') : '';
-			dispatch(updateGlobalSlice({ cartTotal: cartList?.length, email: email, password: password }));
-		}
-	}, []); // Пустой массив зависимостей означает, что эффект выполнится только при монтировании компонента
-
-	// Функция для переключения состояния мобильного меню
-	const toggleMenu = () => {
-		setIsMenuOpen((prev) => !prev);
-	};
-
-	// Функция для смены языка
-	const changeLanguage = (lang: string) => {
-		i18n.changeLanguage(lang);
-	};
-
-	// Фильтрация категорий по строке поиска
-	const filteredCategories = listCategory.filter(
-		(item) => t(item.title).toLowerCase().includes(searchTerm.toLowerCase()), // Применяем фильтрацию с учетом перевода
-	);
+	if (!mounted) {
+		return null;
+	}
 
 	return (
-		<HeaderContent>
-			<HeaderWrapper>
-				{/* Кнопка для открытия/закрытия мобильного меню */}
-				<MenuButton onClick={toggleMenu}>{isMenuOpen ? '✖' : '☰'}</MenuButton>
-
-				{/* Список категорий */}
-				<ListCategories>
-					{filteredCategories.map((item, index) => (
-						<Link href={routes.category(item.link)} key={index}>
-							<Category>{t(item.title)}</Category>
-						</Link>
-					))}
-				</ListCategories>
-
-				{/* Мобильное меню */}
-				{isMenuOpen && (
-					<MobileMenu>
-						{/* Переключатель языка */}
-						<LanguageSwitcher>
-							<button onClick={() => changeLanguage('en')}>EN</button>
-							<button onClick={() => changeLanguage('ru')}>RU</button>
-						</LanguageSwitcher>
-						{/* Отображаем отфильтрованные категории */}
-						{filteredCategories.map((item, index) => (
-							<Link href={routes.category(item.link)} key={index}>
-								<Category>{t(item.title)}</Category>
+		<header className='bg-white sticky top-0 z-50'>
+			<div className='border-b border-gray-100 bg-white/80 backdrop-blur-md'>
+				<div className='container mx-auto px-4'>
+					<div className='flex items-center justify-between h-16'>
+						{/* Логотип */}
+						<div className='flex items-center gap-6'>
+							<Link href='/'>
+								<span className='text-xl font-bold bg-clip-text text-transparent bg-gradient-to-r from-primary to-primary/80'>
+									SpiceJet
+								</span>
 							</Link>
-						))}
-					</MobileMenu>
-				)}
+							<LanguageSelect />
+						</div>
 
-				{/* Блок для отображения данных о пользователе (например, входа/регистрации) */}
-				<BoxLogin />
-			</HeaderWrapper>
-		</HeaderContent>
+						{/* Навигация */}
+						<nav className='hidden lg:block'>
+							<ul className='flex items-center gap-6'>
+								{categories.map((category, index) => (
+									<li key={index}>
+										<Link
+											href={`/category/${category.link}`}
+											className='relative px-2 py-5 text-gray-600 hover:text-primary transition-colors text-sm font-medium group'>
+											{t(category.title)}
+											<span className='absolute bottom-0 left-0 w-full h-0.5 bg-primary scale-x-0 group-hover:scale-x-100 transition-transform duration-200 ease-out' />
+										</Link>
+									</li>
+								))}
+							</ul>
+						</nav>
+
+						{/* Правая часть */}
+						<div className='flex items-center gap-4'>
+							<BoxLogin />
+							<button
+								className='lg:hidden p-2 hover:bg-gray-50 rounded-lg transition-colors'
+								onClick={() => setIsMobileMenuOpen(true)}>
+								<svg className='w-6 h-6 text-gray-600' fill='none' stroke='currentColor' viewBox='0 0 24 24'>
+									<path strokeLinecap='round' strokeLinejoin='round' strokeWidth={2} d='M4 6h16M4 12h16M4 18h16' />
+								</svg>
+							</button>
+						</div>
+					</div>
+				</div>
+			</div>
+
+			{/* Мобильное меню */}
+			{isMobileMenuOpen && (
+				<div className='fixed inset-0 z-50 lg:hidden'>
+					<div className='fixed inset-0 bg-black/20 backdrop-blur-sm' onClick={() => setIsMobileMenuOpen(false)} />
+					<div className='fixed inset-y-0 right-0 w-full max-w-sm bg-white/90 backdrop-blur-lg shadow-xl'>
+						<div className='flex flex-col h-full'>
+							<div className='p-4 border-b border-gray-100/50'>
+								<div className='flex items-center justify-between'>
+									<span className='text-lg font-bold text-gray-900'>{t('menu')}</span>
+									<button
+										className='p-2 hover:bg-gray-50/80 rounded-lg transition-colors'
+										onClick={() => setIsMobileMenuOpen(false)}>
+										<svg className='w-6 h-6 text-gray-600' fill='none' stroke='currentColor' viewBox='0 0 24 24'>
+											<path strokeLinecap='round' strokeLinejoin='round' strokeWidth={2} d='M6 18L18 6M6 6l12 12' />
+										</svg>
+									</button>
+								</div>
+							</div>
+							<nav className='flex-1 overflow-y-auto'>
+								<ul className='p-4 space-y-1'>
+									{categories.map((category, index) => (
+										<li key={index}>
+											<Link
+												href={`/category/${category.link}`}
+												className='flex items-center px-4 py-3 text-gray-700 hover:bg-primary/5 rounded-lg transition-colors'
+												onClick={() => setIsMobileMenuOpen(false)}>
+												{t(category.title)}
+											</Link>
+										</li>
+									))}
+								</ul>
+							</nav>
+						</div>
+					</div>
+				</div>
+			)}
+		</header>
 	);
 };
 
